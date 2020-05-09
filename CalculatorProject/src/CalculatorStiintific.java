@@ -16,7 +16,8 @@ public class CalculatorStiintific extends Calculator {
     public double logaritmInBaza10(int a) {
         return Math.log10(a);
     }
-    public double logaritmDintrunNumar(int a){
+
+    public double logaritmDintrunNumar(int a) {
         return Math.log(a);
 
     }
