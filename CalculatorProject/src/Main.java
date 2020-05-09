@@ -42,11 +42,90 @@ public class Main {
         System.out.println("Rezultat impartire " + impartire);
 
 
-        CalculatorStiintific computer= new CalculatorStiintific();
-        System.out.println("Ridicarea la putere " +computer.ridicareaLaPutere(2,2));
-        System.out.println("Radical dintr un numar " +computer.radicalDintrunNUmar(15));
-        System.out.println("Logaritm in baza 10 " +computer.logaritmInBaza10(5));
-        System.out.println("Logaritm dintr un numar " +computer.logaritmDintrunNumar(2));
+        CalculatorStiintific computer = new CalculatorStiintific();
+        System.out.println("Adunare este " + computer.adunare(2, 2));
+        System.out.println("Scaderea este " + computer.scadere(5, 5));
+        System.out.println("Inmultirea este " + computer.inmultire(7, 5));
+        System.out.println("Impartirea este " + computer.impartire(64, 8));
+        System.out.println("Ridicarea la putere " + computer.ridicareaLaPutere(2, 2));
+        System.out.println("Radical dintr un numar " + computer.radicalDintrunNUmar(15));
+        System.out.println("Logaritm in baza 10 " + computer.logaritmInBaza10(5));
+        System.out.println("Logaritm dintr un numar " + computer.logaritmDintrunNumar(2));
+        Scanner scanner1 = new Scanner(System.in);
 
+        System.out.println("Va rugam introduceti primul numar pentru ridicare la putere");
+        primulNumar = scanner1.nextInt();
+        System.out.println("Va rugam introduceti al doilea numar pentru ridicare la putere ");
+        alDoileaNumar = scanner1.nextInt();
+        System.out.println("Rezultatul ridicari la putere al numerelor " + computer.ridicareaLaPutere(primulNumar, alDoileaNumar));
+
+        System.out.println("Va rugam introduceti numarul pentru calcularea radicalului");
+        primulNumar = scanner.nextInt();
+        System.out.println("Rezultatul calculari radicalului numarului " + primulNumar + "este" + computer.radicalDintrunNUmar(primulNumar));
+
+        System.out.println("va rugam introduceti numarul pentru calcularea logaritmului in baza 10");
+        primulNumar = scanner1.nextInt();
+        System.out.println("rezultatul calculari lograitmului in baza 10 a numarului " + primulNumar + "este " + computer.logaritmInBaza10(primulNumar));
+
+        System.out.println("va rugam introduceti  numarl pentru calcularea logaritmului a numarului ");
+        primulNumar = scanner1.nextInt();
+        System.out.println("rezultatului calcularii logaritmului numarului " + primulNumar + "este" + computer.radicalDintrunNUmar(primulNumar));
+
+
+        //Introduceti doua numere
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Va rugam introduceti cele doua numere");
+
+        //Afisam numerele
+        primulNumar = sc.nextInt();
+        alDoileaNumar = sc.nextInt();
+        System.out.println("Numerele introduse sunt " + primulNumar + " si " + alDoileaNumar);
+
+        //sa se afiseze meniul
+        System.out.println("Meniu");
+
+        //1.Adunare
+        System.out.println("1.Adunare");
+
+        //2.Inmultire
+        System.out.println("2.Inmultire");
+
+        //3.Radical
+        System.out.println("3.Radical");
+
+        //4.Scadere
+        System.out.println("4.Scadere");
+
+        //Afisam un mesaj va rugam alegeti o optiune
+        System.out.println("Va rugam alegeti o optiune");
+
+        //In functie de optiunea aleasa se realizeaza operatia respectiva,daca operatia presupune folosirea unui singur numar
+        // facem operatia si pentru al doilea numar
+        //Afisam rezultatul
+
+        int optiune = 0;
+        optiune = sc.nextInt();//--->utilizatorul introduce un numar la tastatura
+
+        //daca utilizatorul introduce orice numar inafara de 9
+        while (optiune != 9) {
+            if (optiune == 1) {
+                System.out.println("Ati ales optiunea adunare");
+                System.out.println("Rezultatul adunari este " + computer.adunare(primulNumar, alDoileaNumar));
+            } else if (optiune == 2) {
+                System.out.println("Ati ales optiunea inmultire");
+                System.out.println("Rezultatul inmultiri este " + computer.inmultire(primulNumar, alDoileaNumar));
+            } else if (optiune == 3) {
+                System.out.println("Ati ales optiunea radical");
+                System.out.println("Rezultatul radicalului primului numar este " + computer.radicalDintrunNUmar(primulNumar));
+                System.out.println("rezultatul radicalului celui de al doilea numar " + computer.radicalDintrunNUmar(alDoileaNumar));
+            } else if (optiune == 4) {
+                System.out.println("Ati ales optiunea scadere");
+                System.out.println("Rezultatul scadere este " + computer.scadere(primulNumar, alDoileaNumar));
+            } else {
+                System.out.println("Nu gasim optiunea aleasa de  dumneavoastra!");
+            }
+            optiune = sc.nextInt();
+        }
+        System.out.println("Ne pare rau.Ati apasat tasta 9 am iesit din program.O zi buna");
     }
 }
