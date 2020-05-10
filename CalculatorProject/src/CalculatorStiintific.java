@@ -5,6 +5,7 @@ public class CalculatorStiintific extends Calculator {
 
     }
 
+    //Math ne ajuta sa executam un calculator stiintific
     public double ridicareaLaPutere(int a, int b) {
         return Math.pow(a, b);
     }

@@ -127,5 +127,43 @@ public class Main {
             optiune = sc.nextInt();
         }
         System.out.println("Ne pare rau.Ati apasat tasta 9 am iesit din program.O zi buna");
+
+
+        Scanner string = new Scanner(System.in);
+        System.out.println("Va rugam introduceti primul string");
+        String primulString = string.nextLine();
+        System.out.println("Ati introdus primul string: " + primulString);
+        System.out.println("Va rugam introduceti al doilea string");
+        String alDoileaString = string.nextLine();
+        System.out.println("Ati introdus al doilea string" + alDoileaString);
+        CalculatorString calculatorString = new CalculatorString();
+
+        System.out.println("Concatenarea stringurilor este: " +calculatorString.concatenare(primulString,alDoileaString));
+
+        System.out.println("Verificam daca stringul contine un anumit caracter " +calculatorString.contineCaracter(primulString,'v'));
+
+        System.out.println("Adunarea celor doua stringuri este: " +calculatorString.adunareStringuri(primulString,alDoileaString));
+
+        System.out.println("Verificam daca lungima unui string este par sau impar " +calculatorString.stringParImpar(primulString));
+
+        char[] sirCaractere= calculatorString.sirCaractere(primulString);
+        for(int cursor=0;cursor<sirCaractere.length;cursor++){
+            System.out.println("Afisam caracterele stringului " +sirCaractere[cursor]);
+        }
+
+        System.out.println("Verificam daca stringul incepe cu o vocala " +calculatorString.vocala(primulString));
+
+        System.out.println("Numaram spatiile dintr-un string " +calculatorString.spatiiString(alDoileaString));
+
     }
+    //Sa se reprezinte un calculator care face operatii simple (adunare, scadere,..), operatiile stiintifice dar si urmatoarele operatii cu stringuri:
+    // --concateneaza 2 stringuri
+    // -- verifica daca stringul contine un anumit caracter
+    // -- aduna lungimea a 2 stringuri
+    // -- verifica daca lungimea unui string este numar par sau impar
+    // -- transforma un string intr-un sir de caractere
+    // -- verifica daca stringul incepe cu o vocala
+    // -- numara spatiile dintr-un string
+
+
 }

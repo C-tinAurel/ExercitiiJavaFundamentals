@@ -7,6 +7,7 @@ public class Calculator {
     }
 
     public int adunare(int a, int b) {
+
         return a + b;
     }
 
