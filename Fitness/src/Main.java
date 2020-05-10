@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-
+//cerinte:
         // sa se modeleze o sedinta de personal training
         //vom avea:Trainee
         //Trainee(student)
@@ -26,9 +26,9 @@ public class Main {
         //Boxul in scade stamina 70
         //Stamina >0
         // puterea o sa ii creasca cu 10
-        Scanner name =new Scanner(System.in);
+        Scanner name = new Scanner(System.in);
         System.out.println("Va rugam introduceti numele trainee-ului");
-        String nume=name.nextLine();
+        String nume = name.nextLine();
 
         Trainee ion = new Trainee("Ion");
 
@@ -40,15 +40,15 @@ public class Main {
             switch (ziCurenta) {
                 case "Luni":
                     ion.cardio();
-                    System.out.println("Stamina a ajuns la " +ion.getStamina());
+                    System.out.println("Stamina a ajuns la " + ion.getStamina());
                     break;
                 case "Miercuri":
                     ion.bodyPump();
-                    System.out.println("Stamina a ajuns la " +ion.getStamina());
+                    System.out.println("Stamina a ajuns la " + ion.getStamina());
                     break;
                 case "Vineri":
                     ion.box();
-                    System.out.println("Stamina a ajuns la " +ion.getStamina());
+                    System.out.println("Stamina a ajuns la " + ion.getStamina());
                     break;
                 default:
                     System.out.println("Nu am gasit ziua curenta");
@@ -58,7 +58,7 @@ public class Main {
         }
 
         //! in fata equals =not equals
-        if(!ziCurenta.equals("Luni") || !ziCurenta.equals("Miercuri") || !ziCurenta.equals("Vineri")){
+        if (!ziCurenta.equals("Luni") || !ziCurenta.equals("Miercuri") || !ziCurenta.equals("Vineri")) {
             System.out.println("Ati introdus o zi in care nu se antreneaza " + ziCurenta);
         }
         if (ion.getStamina() <= 0) {
@@ -66,5 +66,5 @@ public class Main {
         }
         System.out.println("Puterea trainee-ului " + ion.getName() + " a ajuns la " + ion.getStrength());
     }
-
+//
 }
