@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
-
-public class NotEnoughMoneyException {
+public class NotEnoughMoneyException extends Exception {
+    public NotEnoughMoneyException(String messege){
+        super(messege);
+    }
 }

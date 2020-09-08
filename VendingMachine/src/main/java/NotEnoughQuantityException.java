@@ -1,4 +1,6 @@
-package PACKAGE_NAME;
+public class NotEnoughQuantityException extends Exception {
 
-public class NotEnoughQuantityException {
+    public NotEnoughQuantityException(String message){
+        super(message);
+    }
 }

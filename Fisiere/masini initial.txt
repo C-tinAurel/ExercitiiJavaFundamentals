@@ -1,0 +1,7 @@
+audi,a3,negru,15000,benzina,2006
+renault,megan,alb,20000,motorina,2006
+skoda,octavia,negru,10000,benzina,2011
+Bmw,S3,rosu,15000,benzina,2005
+Pegeout,206,albastru,1000,motorina,2015
+Renault,clio,negru,15000,benzina,2006
+Ford,focus,rous,15000,motorina,2012

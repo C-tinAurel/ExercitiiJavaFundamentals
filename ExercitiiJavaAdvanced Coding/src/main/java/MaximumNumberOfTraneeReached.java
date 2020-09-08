@@ -1,4 +1,8 @@
-package PACKAGE_NAME;
+public class MaximumNumberOfTraneeReached extends Exception{
+    public MaximumNumberOfTraneeReached(String message){
+        super(message);
 
-public class MaximumNumberOfTraneeReached {
+    }
+
+
 }

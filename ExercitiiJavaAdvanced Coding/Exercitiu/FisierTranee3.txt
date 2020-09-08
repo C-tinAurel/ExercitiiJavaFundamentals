@@ -1,0 +1,5 @@
+George;Stanescu;1994;true
+Vladut;Teodor;1995;false
+Serghiev;Vladimir;2001;false
+Catalin;Morun;1993;true
+Pintea;David;1994;false

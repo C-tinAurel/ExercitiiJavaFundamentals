@@ -1,4 +1,8 @@
-package PACKAGE_NAME;
+public class PizzaQuatroStagioni extends Pizza {
 
-public class PizzaQuatroStagioni {
+
+    @Override
+    public void cook() {
+        System.out.println("Facem pizza quatrostagioni");
+    }
 }

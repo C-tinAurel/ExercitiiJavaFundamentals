@@ -1,4 +1,12 @@
-package PACKAGE_NAME;
+public class Fanta  extends Drink{
 
-public class Fanta {
+    public Fanta(String productName,int productPrice,int productQuantity){
+        this.productName=productName;
+        this.productPrice=productPrice;
+        this.productQuantity=productQuantity;
+    }
+
+    public Fanta() {
+
+    }
 }

@@ -1,4 +1,17 @@
-package PACKAGE_NAME;
+public abstract class Drink extends Product {
 
-public class Drink {
+
+
+    public Drink(String productName,int productPrice,int productQuantity){
+        this.productName=productName;
+        this.productPrice=productPrice;
+        this.productQuantity=productQuantity;
+    }
+    public Drink(){
+
+    }
+
+
+
+
 }

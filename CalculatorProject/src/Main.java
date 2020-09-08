@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         //Calculatoru sa fie reprezentat folosind programare orientata obiect
         //sa se modeleze comportamentul unui calculator simplu(adunare,scadere,inmultire,impartire)
+
         //calculator=constuctor
         Calculator calculator = new Calculator();
 

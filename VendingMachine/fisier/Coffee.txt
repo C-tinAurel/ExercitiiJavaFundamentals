@@ -1,0 +1,3 @@
+Cappuccino;10;6
+Americano;8;12
+Espresso;3;12

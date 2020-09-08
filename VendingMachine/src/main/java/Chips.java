@@ -1,4 +1,12 @@
-package PACKAGE_NAME;
+public class Chips extends Snack {
 
-public class Chips {
+    public Chips(String productName,int productPrice,int productQunatity){
+        this.productName=productName;
+        this.productPrice=productPrice;
+        this.productQuantity=productQunatity;
+
+    }
+    public Chips(){
+
+    }
 }

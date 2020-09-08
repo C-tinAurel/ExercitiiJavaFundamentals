@@ -39,7 +39,7 @@ public class Main {
                 cosDeCumparaturi[1] = matura;
                 System.out.println("Afisam adaugarea: " + cosDeCumparaturi[1].getNume() + " si " + cosDeCumparaturi[1].getPret());
             } else if (optiune == 3) {
-                System.out.println("Ati adaugat in cosul de gunoi un set de farfurii");
+                System.out.println("Ati adaugat in cosul de cumparaturi un set de farfurii");
                 Produs farfurii = new Produs("Farfurii", 10);
                 cosDeCumparaturi[2] = farfurii;
                 System.out.println("Afisam adaugarea: " + cosDeCumparaturi[2].getNume() + " si " + cosDeCumparaturi[2].getPret());

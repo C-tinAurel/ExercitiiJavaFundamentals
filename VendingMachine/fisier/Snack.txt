@@ -1,0 +1,3 @@
+Croissant;4;3
+Chips;7;6
+ChocolateBar;4;10
