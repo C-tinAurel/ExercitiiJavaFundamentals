@@ -10,19 +10,19 @@ public class Main {
         cuvinte[4] = "creatiile";
         cuvinte[5] = "artistice";
         cuvinte[6] = "credinte";
-concatenareSiAfisare(cuvinte);
+        concatenareSiAfisare(cuvinte);
 
     }
 
     public static void concatenareSiAfisare(String[] cuvinte) {
-        String cuvintee ="";
+        String cuvintee = "";
         for (int cursor = 1; cursor < cuvinte.length; cursor++) {
-    if(cursor % 3 == 0){
-       cuvintee = cuvintee.concat(cuvinte[cursor]);
+            if (cursor % 3 == 0) {
+                cuvintee = cuvintee.concat(cuvinte[cursor]);
 
-    }
+            }
         }
-        System.out.println("Rezultat: " +cuvintee);
+        System.out.println("Rezultat: " + cuvintee);
 
     }
 }

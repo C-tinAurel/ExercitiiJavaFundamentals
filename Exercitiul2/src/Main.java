@@ -1,7 +1,7 @@
 public class Main {
     //Cerinta:
     //care este cel mai mare numar dintr-un vector
-    //Avem un vector cu 10 elemente int,returnam cel mai mare numar
+    //Avem un vector cu 10 elemente int returnam cel mai mare numar
     public static void main(String[] args) {
 
 

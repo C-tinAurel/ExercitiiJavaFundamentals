@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         String string1 = "Ana are pere aceasta data.";
-        String string2 = "Ana are pere.";
+        String string2 = "Ana are pere";
         verificaIncludere(string1, string2);
 
     }
