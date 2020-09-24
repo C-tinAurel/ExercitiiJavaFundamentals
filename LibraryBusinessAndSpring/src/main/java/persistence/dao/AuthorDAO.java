@@ -4,7 +4,6 @@ import config.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import persistence.entities.Author;
-import persistence.entities.Section;
 
 import javax.persistence.Query;
 import java.util.List;

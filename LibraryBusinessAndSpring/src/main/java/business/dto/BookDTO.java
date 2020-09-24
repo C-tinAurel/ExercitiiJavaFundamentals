@@ -10,8 +10,8 @@ public class BookDTO {
     private String gender;
     private boolean borrowed;
     private boolean freeBook;
-    private Author author;
-    private Section section;
+    private AuthorDTO authorDTO;
+    private SectionDTO sectionDTO;
 
     public BookDTO() {
     }
@@ -24,14 +24,14 @@ public class BookDTO {
         this.freeBook = freeBook;
     }
 
-    public BookDTO(String title, int volumNumber, String gender, boolean borrowed, boolean freeBook, Author author, Section section) {
+    public BookDTO(String title, int volumNumber, String gender, boolean borrowed, boolean freeBook, AuthorDTO authorDTO, SectionDTO sectionDTO) {
         this.title = title;
         this.volumNumber = volumNumber;
         this.gender = gender;
         this.borrowed = borrowed;
         this.freeBook = freeBook;
-        this.author = author;
-        this.section = section;
+        this.authorDTO = authorDTO;
+        this.sectionDTO = sectionDTO;
     }
 
     public String getTitle() {
@@ -74,32 +74,26 @@ public class BookDTO {
         this.freeBook = freeBook;
     }
 
-    public Author getAuthor() {
-        return author;
+    public AuthorDTO getAuthorDTO() {
+        return authorDTO;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthorDTO(AuthorDTO authorDTO) {
+        this.authorDTO = authorDTO;
     }
 
-    public Section getSection() {
-        return section;
+    public SectionDTO getSectionDTO() {
+        return sectionDTO;
     }
 
-    public void setSection(Section section) {
-        this.section = section;
+    public void setSectionDTO(SectionDTO sectionDTO) {
+        this.sectionDTO = sectionDTO;
     }
 
     @Override
     public String toString() {
         return "BookDTO{" +
                 "title='" + title + '\'' +
-                ", volumNumber=" + volumNumber +
-                ", gender='" + gender + '\'' +
-                ", borrowed=" + borrowed +
-                ", freeBook=" + freeBook +
-                ", author=" + author +
-                ", section=" + section +
                 '}';
     }
 }

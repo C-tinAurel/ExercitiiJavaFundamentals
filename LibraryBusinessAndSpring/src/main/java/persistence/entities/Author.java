@@ -3,7 +3,7 @@ package persistence.entities;
 import javax.persistence.*;
 import java.util.Set;
 @NamedQueries({@NamedQuery(name="SelectAuthorByName",query = "select author from Author author where author.name=:name"),
-@NamedQuery(name="DeleteAuthorBySurname",query = "delete Author where author.surname=:surname")})
+@NamedQuery(name="DeleteAuthorBySurname",query = "delete Author where surname=:surname")})
 @Entity
 @Table(name = "authors")
 public class Author {
@@ -73,8 +73,6 @@ public class Author {
         return "Author{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", book=" + book +
-                ", persons=" + persons +
                 '}';
     }
 }

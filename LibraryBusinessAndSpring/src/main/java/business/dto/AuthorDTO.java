@@ -10,8 +10,8 @@ public class AuthorDTO {
     private int id;
     private String name;
     private String surname;
-    private Book book;
-    private Set<Person> persons;
+    private BookDTO bookDTO;
+    private Set<PersonDTO> personsDTO;
 
     public AuthorDTO() {
     }
@@ -21,11 +21,11 @@ public class AuthorDTO {
         this.surname = surname;
     }
 
-    public AuthorDTO(String name, String surname, Book book, Set<Person> persons) {
+    public AuthorDTO(String name, String surname, BookDTO bookDTO, Set<PersonDTO> personsDTO) {
         this.name = name;
         this.surname = surname;
-        this.book = book;
-        this.persons = persons;
+        this.bookDTO = bookDTO;
+        this.personsDTO = personsDTO;
     }
 
     public String getName() {
@@ -44,20 +44,20 @@ public class AuthorDTO {
         this.surname = surname;
     }
 
-    public Book getBook() {
-        return book;
+    public BookDTO getBookDTO() {
+        return bookDTO;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookDTO(BookDTO bookDTO) {
+        this.bookDTO = bookDTO;
     }
 
-    public Set<Person> getPersons() {
-        return persons;
+    public Set<PersonDTO> getPersonsDTO() {
+        return personsDTO;
     }
 
-    public void setPersons(Set<Person> persons) {
-        this.persons = persons;
+    public void setPersonsDTO(Set<PersonDTO> personsDTO) {
+        this.personsDTO = personsDTO;
     }
 
     @Override

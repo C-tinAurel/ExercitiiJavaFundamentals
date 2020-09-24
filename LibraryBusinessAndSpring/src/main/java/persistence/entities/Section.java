@@ -3,7 +3,7 @@ package persistence.entities;
 import javax.persistence.*;
 import java.util.Set;
 @NamedQueries({@NamedQuery(name="FindSectionByName",query = "select section from Section section where section.name=:name"),
-        @NamedQuery(name="DeleteSectionByName",query = "delete Section where section.name=:name")})
+        @NamedQuery(name="DeleteSectionByName",query = "delete Section where name=:name")})
 @Entity
 @Table(name="sections")
 public class Section {

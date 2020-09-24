@@ -1,8 +1,5 @@
 package business.dto;
 
-import persistence.entities.Book;
-import persistence.entities.Section;
-
 import java.util.Set;
 
 public class PersonDTO {
@@ -11,8 +8,8 @@ public class PersonDTO {
     private String surname;
     private String address;
     private int yearOfBirth;
-    private Set<Book> books;
-    private Set<Section> sections;
+    private Set<BookDTO> bookDTOS;
+    private Set<SectionDTO> sectionDTO;
 
     public PersonDTO() {
     }
@@ -24,13 +21,13 @@ public class PersonDTO {
         this.yearOfBirth = yearOfBirth;
     }
 
-    public PersonDTO(String name, String surname, String address, int yearOfBirth, Set<Book> books, Set<Section> sections) {
+    public PersonDTO(String name, String surname, String address, int yearOfBirth, Set<BookDTO> bookDTOS, Set<SectionDTO> sectionDTO) {
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.yearOfBirth = yearOfBirth;
-        this.books = books;
-        this.sections = sections;
+        this.bookDTOS = bookDTOS;
+        this.sectionDTO = sectionDTO;
     }
 
     public String getName() {
@@ -65,20 +62,20 @@ public class PersonDTO {
         this.yearOfBirth = yearOfBirth;
     }
 
-    public Set<Book> getBooks() {
-        return books;
+    public Set<BookDTO> getBookDTOS() {
+        return bookDTOS;
     }
 
-    public void setBooks(Set<Book> books) {
-        this.books = books;
+    public void setBookDTOS(Set<BookDTO> bookDTOS) {
+        this.bookDTOS = bookDTOS;
     }
 
-    public Set<Section> getSections() {
-        return sections;
+    public Set<SectionDTO> getSectionDTO() {
+        return sectionDTO;
     }
 
-    public void setSections(Set<Section> sections) {
-        this.sections = sections;
+    public void setSectionDTO(Set<SectionDTO> sectionDTO) {
+        this.sectionDTO = sectionDTO;
     }
 
     @Override
@@ -86,10 +83,6 @@ public class PersonDTO {
         return "PersonDTO{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", address='" + address + '\'' +
-                ", yearOfBirth=" + yearOfBirth +
-                ", books=" + books +
-                ", sections=" + sections +
                 '}';
     }
 }

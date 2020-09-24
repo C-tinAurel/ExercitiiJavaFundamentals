@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Lazy;
 import javax.persistence.*;
 import java.util.Set;
 @NamedQueries({@NamedQuery(name="FindPersonByName",query = "select person from Person person where person.name=:name"),
-@NamedQuery(name = "DeletePersonByYearOfBirth",query = "delete Person where person.yearOfBirth=:yearOfBirth")})
+@NamedQuery(name = "DeletePersonByYearOfBirth",query = "delete Person where yearOfBirth=:yearOfBirth")})
 @Entity
 @Table(name="persons")
 public class Person {

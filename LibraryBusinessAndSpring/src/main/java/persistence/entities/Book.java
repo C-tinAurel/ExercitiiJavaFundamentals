@@ -2,7 +2,7 @@ package persistence.entities;
 
 import javax.persistence.*;
 import java.security.Provider;
-@NamedQueries({@NamedQuery(name = "FindTitleBook",query = "select book from Book book where book.title=:title"),@NamedQuery(name = "DeleteByVolumNumber",query = "delete Book where book.volumNumber=:volumNumber")})
+@NamedQueries({@NamedQuery(name = "FindTitleBook",query = "select book from Book book where book.title=:title"),@NamedQuery(name = "DeleteByVolumNumber",query = "delete Book where volumNumber=:volumNumber")})
 @Entity
 @Table(name = "books")
 public class Book {
@@ -107,12 +107,6 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "title='" + title + '\'' +
-                ", volumNumber=" + volumNumber +
-                ", gender='" + gender + '\'' +
-                ", borrowed=" + borrowed +
-                ", freeBook=" + freeBook +
-                ", author=" + author +
-                ", section=" + section +
                 '}';
     }
 }

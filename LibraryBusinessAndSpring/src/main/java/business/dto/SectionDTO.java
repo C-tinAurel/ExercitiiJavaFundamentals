@@ -8,8 +8,8 @@ import java.util.Set;
 public class SectionDTO {
     private int id;
     private String name;
-    private Set<Book> books;
-    private Set<Author> authors;
+    private Set<BookDTO> bookDTOSet;
+    private Set<AuthorDTO> authorDTOS;
 
     public SectionDTO() {
     }
@@ -18,10 +18,10 @@ public class SectionDTO {
         this.name = name;
     }
 
-    public SectionDTO(String name, Set<Book> books, Set<Author> authors) {
+    public SectionDTO(String name, Set<BookDTO> bookDTOSet, Set<AuthorDTO> authorDTOS) {
         this.name = name;
-        this.books = books;
-        this.authors = authors;
+        this.bookDTOSet = bookDTOSet;
+        this.authorDTOS = authorDTOS;
     }
 
     public String getName() {
@@ -32,28 +32,26 @@ public class SectionDTO {
         this.name = name;
     }
 
-    public Set<Book> getBooks() {
-        return books;
+    public Set<BookDTO> getBookDTOSet() {
+        return bookDTOSet;
     }
 
-    public void setBooks(Set<Book> books) {
-        this.books = books;
+    public void setBookDTOSet(Set<BookDTO> bookDTOSet) {
+        this.bookDTOSet = bookDTOSet;
     }
 
-    public Set<Author> getAuthors() {
-        return authors;
+    public Set<AuthorDTO> getAuthorDTOS() {
+        return authorDTOS;
     }
 
-    public void setAuthors(Set<Author> authors) {
-        this.authors = authors;
+    public void setAuthorDTOS(Set<AuthorDTO> authorDTOS) {
+        this.authorDTOS = authorDTOS;
     }
 
     @Override
     public String toString() {
         return "SectionDTO{" +
                 "name='" + name + '\'' +
-                ", books=" + books +
-                ", authors=" + authors +
                 '}';
     }
 }
