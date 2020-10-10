@@ -1,0 +1,69 @@
+package business.service;
+
+import business.dto.CementDTO;
+import business.dto.DepartmentDTO;
+import business.dto.DepositDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import persistence.dao.CementDAO;
+import persistence.entities.Cement;
+import persistence.entities.Department;
+import persistence.entities.Deposit;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Service
+public class CementService {
+    @Autowired
+    CementDAO cementDAO;
+
+
+    public void insert(CementDTO cementDTO) {
+        Cement cement = new Cement();
+        cement.setName(cementDTO.getName());
+        cement.setGranulation(cementDTO.getGranulation());
+        cement.setPrice(cementDTO.getPrice());
+        cement.setStock(cementDTO.getStock());
+        Department department = new Department();
+        department.setName(cementDTO.getDepartmentDTO().getName());
+        cement.setDepartment(department);
+        Set<Deposit> deposits=new HashSet<>();
+        for (DepositDTO depositDTO:cementDTO.getDepositDTOSet()){
+            Deposit deposit=new Deposit();
+            deposit.setCity(depositDTO.getCity());
+            deposit.setAddress(depositDTO.getAddress());
+            deposits.add(deposit);
+        }
+        cement.setDepositSet(deposits);
+        cementDAO.insert(cement);
+    }
+
+    public List<CementDTO> findCementByName(String name) {
+        List<Cement> cementList = cementDAO.findCementByName(name);
+        List<CementDTO> cementDTOList = new ArrayList<>();
+        for (Cement cement : cementList) {
+            CementDTO cementDTO = new CementDTO();
+            cementDTO.setName(cement.getName());
+            cementDTO.setGranulation(cement.getGranulation());
+            cementDTO.setStock(cement.getStock());
+            cementDTO.setPrice(cement.getPrice());
+            DepartmentDTO departmentDTO = new DepartmentDTO();
+            departmentDTO.setName(cement.getDepartment().getName());
+            cementDTO.setDepartmentDTO(departmentDTO);
+            cementDTOList.add(cementDTO);
+        }
+        return cementDTOList;
+    }
+    public Integer updateCementGranulation(String granulation,String name){
+        Integer numberOfUpdatedGranulation=cementDAO.updateCementByGranulation(granulation,name);
+        return numberOfUpdatedGranulation;
+    }
+    public Integer deleteCementGranulation(String granulation){
+        Integer numberOfDeletedCementGranulation=cementDAO.deleteCementByGranulation(granulation);
+        return numberOfDeletedCementGranulation;
+    }
+}
+
