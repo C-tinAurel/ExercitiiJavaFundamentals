@@ -14,34 +14,22 @@ public class ContinentService {
 
     public void insertContinent(ContinentDTO continentDTO) {
         Continent continent = new Continent();
-        Continent continentFound = continentDAO.findContinent(continentDTO.getName());
-        if (continentFound == null) {
-            continent.setName(continentDTO.getName());
-            continentDAO.insertContinent(continent);
-        } else if (continentFound.getName().equalsIgnoreCase(continentDTO.getName())) {
-            continent.setName(continentFound.getName());
-            continent.setId(continentFound.getId());
-        }
+        continent.setName(continentDTO.getName());
+        continentDAO.insertContinent(continent);
+
     }
 
     public ContinentDTO findContinent(String name) {
         Continent continent = continentDAO.findContinent(name);
+        if(continent==null){
+            return null;
+        }
         ContinentDTO continentDTO = new ContinentDTO();
         continentDTO.setName(continent.getName());
         return continentDTO;
+
     }
 
-    public Continent setContinent(ContinentDTO continentDTO) {
-        Continent continent = new Continent();
-        Continent continentFound = continentDAO.findContinent(continentDTO.getName());
-        if (continentFound == null) {
-            continent.setName(continentDTO.getName());
-            continentDAO.insertContinent(continent);
-        } else if (continentFound.getName().equalsIgnoreCase(continentDTO.getName())) {
-            continent.setName(continentFound.getName());
-            continent.setId(continentFound.getId());
-        }
-        return continent;
-    }
+
 }
 

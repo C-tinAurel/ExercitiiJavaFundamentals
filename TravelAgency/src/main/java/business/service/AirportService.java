@@ -5,8 +5,13 @@ import business.dto.CityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import persistence.dao.AirportDAO;
+import persistence.dao.CityDAO;
+import persistence.dao.ContinentDAO;
+import persistence.dao.CountryDAO;
 import persistence.entities.Airport;
 import persistence.entities.City;
+import persistence.entities.Continent;
+import persistence.entities.Country;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,41 +22,39 @@ public class AirportService {
     @Autowired
     AirportDAO airportDAO;
     @Autowired
-    CityService cityService;
+    CityDAO cityDAO;
+    @Autowired
+    CountryDAO countryDAO;
+    @Autowired
+    ContinentDAO continentDAO;
 
     public void insertAirport(AirportDTO airportDTO) {
         Airport airport = new Airport();
-        Airport airportFound = airportDAO.findAirportByName(airportDTO.getName());
-        City cityFound = cityService.setCity(airportDTO.getCityDTO());
-        if (airportFound == null) {
-            airport.setName(airportDTO.getName());
+        airport.setName(airportDTO.getName());
+        setCity(airportDTO,airport);
+        airportDAO.insertAirport(airport);
+
+    }
+
+    public void setCity(AirportDTO airportDTO, Airport airport) {
+        City city = new City();
+        City cityFound = cityDAO.findCity(airportDTO.getCityDTO().getName());
+       Country countryFound = countryDAO.findCountry(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
+        if (cityFound==null){
+            city.setName(airportDTO.getCityDTO().getName());
+           city.setCountry(countryFound);
+            airport.setCity(city);
+        }else {
             airport.setCity(cityFound);
-            airportDAO.insertAirport(airport);
-        } else if (airportFound.getName().equalsIgnoreCase(airportDTO.getName())) {
-            airport.setName(airportFound.getName());
-            airport.setCity(cityFound);
-            airport.setId(airport.getId());
         }
     }
 
-    public Airport setAirport(AirportDTO airportDTO) {
-        Airport airport = new Airport();
-        Airport airportFound = airportDAO.findAirportByName(airportDTO.getName());
-        City cityFound = cityService.setCity(airportDTO.getCityDTO());
-        if (airportFound == null) {
-            airport.setName(airportDTO.getName());
-            airport.setCity(cityFound);
-            airportDAO.insertAirport(airport);
-        } else if (airportFound.getName().equalsIgnoreCase(airportDTO.getName())) {
-            airport.setName(airportFound.getName());
-            airport.setCity(cityFound);
-            airport.setId(airportFound.getId());
-        }
-        return airport;
-    }
 
     public AirportDTO findAirportByName(String name) {
         Airport airport = airportDAO.findAirportByName(name);
+        if (airport==null){
+            return null;
+        }
         AirportDTO airportDTO = new AirportDTO();
         airportDTO.setName(airport.getName());
         CityDTO cityDTO = new CityDTO();
@@ -74,8 +77,8 @@ public class AirportService {
         return airportDTOList;
     }
 
-    public Integer updateAirportName(String newName,String name){
-        Integer updatedRow=airportDAO.updateAirportName(newName, name);
+    public Integer updateAirportName(String newName, String name) {
+        Integer updatedRow = airportDAO.updateAirportName(newName, name);
         return updatedRow;
     }
 }

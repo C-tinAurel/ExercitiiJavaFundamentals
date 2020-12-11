@@ -3,6 +3,8 @@ package frontend;
 import business.dto.CityDTO;
 import business.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,15 +15,20 @@ public class CityController {
     CityService cityService;
 
     @PostMapping(path = "/insertCity")
-    public String insertCity(@RequestBody @Valid CityDTO cityDTO){
-        cityService.insertCity(cityDTO);
-        return "Ati introdus cu succes Orasul : " +cityDTO.getName();
+    public ResponseEntity insertCity(@RequestBody @Valid CityDTO cityDTO){
+       if(cityService.findCity(cityDTO.getName())==null){
+           cityService.insertCity(cityDTO);
+       }
+       return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("Orasul " +cityDTO.getName() + " exista in baza de date");
     }
 
     @GetMapping(path = "/findCity")
-    public CityDTO findCity(@RequestParam String name){
-        CityDTO cityDTO=cityService.findCountry(name);
-        return cityDTO;
+    public String findCity(@RequestParam String name){
+        CityDTO cityDTO=cityService.findCity(name);
+        if(cityDTO==null){
+            return "Nu a fost gasit Orasul: " +name;
+        }
+        return "Orasul: " +cityDTO.getName() + " exista in baza de date";
     }
 
    @DeleteMapping(path = "/deleteCity")

@@ -19,16 +19,16 @@ public class ClientDAO {
         session.close();
     }
 
-    public List<Client> findClient(String name, String surname) {
+    public Client findClient(String name, String surname) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query findClient = session.createNamedQuery("selectClient");
+        org.hibernate.query.Query findClient = session.createNamedQuery("selectClient");
         findClient.setParameter("name", name);
         findClient.setParameter("surname", surname);
-        List<Client> clientList = findClient.getResultList();
+        Client client = (Client) findClient.uniqueResult();
         session.getTransaction().commit();
         session.close();
-        return clientList;
+        return client;
     }
 
     public Integer updateClientAddress(String address, String name, String surname) {

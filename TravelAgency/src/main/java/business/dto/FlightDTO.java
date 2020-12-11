@@ -1,5 +1,7 @@
 package business.dto;
 
+import persistence.entities.Airport;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -7,75 +9,49 @@ import javax.validation.constraints.Pattern;
 
 
 public class FlightDTO {
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String flightNumber;
     @NotEmpty
     @NotNull
     @NotBlank
-    @Pattern(regexp = "([0-9])*")
-    private String flightData;
-    @NotBlank
+    private String flightDataAndTimeDeparture;
+    private String flightDataAndTimeArriving;
     @NotNull
-    @NotEmpty
-    private String flightHour;
-    @NotEmpty
-    @NotBlank
-    @NotNull
-    @Pattern(regexp = "([a-z-A-Z])*")
-    private String flightTo;
-    @NotBlank
-    @NotEmpty
-    @NotNull
-    @Pattern(regexp = "([0-9])*")
     private double price;
-    @NotEmpty
-    @NotBlank
     @NotNull
-    @Pattern(regexp = "([0-9])*")
     private int availableSeat;
-    @NotNull
-    private AirportDTO airportDTO;
+    private AirportDTO airportDTODeparture;
+    private AirportDTO airportDTOArriving;
 
     public FlightDTO() {
     }
 
-    public FlightDTO(@NotEmpty @NotNull @NotBlank @Pattern(regexp = "([0-9])*") String flightData, @NotBlank @NotNull @NotEmpty String flightHour, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([a-z-A-Z])*") String flightTo, @NotBlank @NotEmpty @NotNull @Pattern(regexp = "([0-9])*") double price, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int availableSeat) {
-        this.flightData = flightData;
-        this.flightHour = flightHour;
-        this.flightTo = flightTo;
+    public FlightDTO(@NotNull @NotEmpty @NotBlank String flightNumber, @NotEmpty @NotNull @NotBlank String flightDataAndTimeDeparture, String flightDataAndTimeArriving, @NotNull double price, @NotNull int availableSeat) {
+        this.flightNumber = flightNumber;
+        this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
+        this.flightDataAndTimeArriving = flightDataAndTimeArriving;
         this.price = price;
         this.availableSeat = availableSeat;
     }
 
-    public FlightDTO(@NotEmpty @NotNull @NotBlank @Pattern(regexp = "([0-9])*") String flightData, @NotBlank @NotNull @NotEmpty String flightHour, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([a-z-A-Z])*") String flightTo, @NotBlank @NotEmpty @NotNull @Pattern(regexp = "([0-9])*") double price, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int availableSeat, @NotNull AirportDTO airportDTO) {
-        this.flightData = flightData;
-        this.flightHour = flightHour;
-        this.flightTo = flightTo;
+    public FlightDTO(@NotNull @NotEmpty @NotBlank String flightNumber, @NotEmpty @NotNull @NotBlank String flightDataAndTimeDeparture, String flightDataAndTimeArriving, @NotNull double price, @NotNull int availableSeat, @NotNull AirportDTO airportDTODeparture, AirportDTO airportDTOArriving) {
+        this.flightNumber = flightNumber;
+        this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
+        this.flightDataAndTimeArriving = flightDataAndTimeArriving;
         this.price = price;
         this.availableSeat = availableSeat;
-        this.airportDTO = airportDTO;
+        this.airportDTODeparture = airportDTODeparture;
+        this.airportDTOArriving = airportDTOArriving;
     }
 
-    public String getFlightData() {
-        return flightData;
+    public String getFlightNumber() {
+        return flightNumber;
     }
 
-    public void setFlightData(String flightData) {
-        this.flightData = flightData;
-    }
-
-    public String getFlightHour() {
-        return flightHour;
-    }
-
-    public void setFlightHour(String flightHour) {
-        this.flightHour = flightHour;
-    }
-
-    public String getFlightTo() {
-        return flightTo;
-    }
-
-    public void setFlightTo(String flightTo) {
-        this.flightTo = flightTo;
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
     }
 
     public double getPrice() {
@@ -94,20 +70,44 @@ public class FlightDTO {
         this.availableSeat = availableSeat;
     }
 
-    public AirportDTO getAirportDTO() {
-        return airportDTO;
+    public AirportDTO getAirportDTODeparture() {
+        return airportDTODeparture;
     }
 
-    public void setAirportDTO(AirportDTO airportDTO) {
-        this.airportDTO = airportDTO;
+    public void setAirportDTODeparture(AirportDTO airportDTODeparture) {
+        this.airportDTODeparture = airportDTODeparture;
+    }
+
+    public AirportDTO getAirportDTOArriving() {
+        return airportDTOArriving;
+    }
+
+    public void setAirportDTOArriving(AirportDTO airportDTOArriving) {
+        this.airportDTOArriving = airportDTOArriving;
+    }
+
+    public String getFlightDataAndTimeDeparture() {
+        return flightDataAndTimeDeparture;
+    }
+
+    public void setFlightDataAndTimeDeparture(String flightDataAndTimeDeparture) {
+        this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
+    }
+
+    public String getFlightDataAndTimeArriving() {
+        return flightDataAndTimeArriving;
+    }
+
+    public void setFlightDataAndTimeArriving(String flightDataAndTimeArriving) {
+        this.flightDataAndTimeArriving = flightDataAndTimeArriving;
     }
 
     @Override
     public String toString() {
         return "FlightDTO{" +
-                "flightData=" + flightData +
-                ", flightHour=" + flightHour +
-                ", flightTo='" + flightTo + '\'' +
+                "flightNumber='" + flightNumber + '\'' +
+                ", flightDataAndTimeDeparture='" + flightDataAndTimeDeparture + '\'' +
+                ", flightDataAndTimeArriving='" + flightDataAndTimeArriving + '\'' +
                 ", price=" + price +
                 ", availableSeat=" + availableSeat +
                 '}';

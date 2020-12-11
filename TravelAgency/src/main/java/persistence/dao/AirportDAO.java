@@ -25,6 +25,9 @@ public class AirportDAO {
         org.hibernate.query.Query findAirportName = session.createNamedQuery("selectAirport");
         findAirportName.setParameter("name", name);
         Airport airport = (Airport) findAirportName.uniqueResult();
+        if (airport==null){
+            return null;
+        }
         session.getTransaction().commit();
         session.close();
         return airport;

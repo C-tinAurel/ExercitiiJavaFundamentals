@@ -3,16 +3,16 @@ package persistence.entities;
 import javax.persistence.*;
 import java.util.Set;
 
- /*@NamedQueries({@NamedQuery(name = "selectHotelByCity", query = "select hotel from Hotel hotel inner join " +
-        "City city where hotel.name=:name and city.name=:name"),
-        @NamedQuery(name = "selectHotelByAvailableRoomAndType",query = "select hotel from Hotel hotel inner join" +
-                " Room room where hotel.name=:name , room.type=:type and room.numberAvailable=:numberAvailable"),
-        @NamedQuery(name = "selectHotelByExtraBedRoom",query = "select hotel from Hotel hotel inner join Room room where " +
-                "hotel.name=:name and room.extraBed=:extraBed"),
+ @NamedQueries({@NamedQuery(name = "selectHotelByCity", query = "select hotel.name from Hotel hotel inner join " +
+        "City city where  city.name=:name"),
+        @NamedQuery(name = "selectHotelByAvailableRoomAndType",query = "select hotel.name from Hotel hotel inner join" +
+                " Room room where  room.type=:type or room.type=:null and room.numberAvailable=:numberAvailable or room.numberAvailable=:null"),
+        @NamedQuery(name = "selectHotelByExtraBedRoom",query = "select hotel.name from Hotel hotel inner join Room room where " +
+                " room.extraBed=:extraBed"),
         @NamedQuery(name = "selectHotelName",query = "select hotel from Hotel hotel where name=:name"),
         @NamedQuery(name = "updateHotelStars", query = "update Hotel set stars=:stars where name=:name"),
-        @NamedQuery(name = "updateHotelDescription", query = "update Hotel set description=:description where name=:name"),
-        @NamedQuery(name = "deleteHotel", query = "delete Hotel where name=:name")})*/
+        @NamedQuery(name = "updateHotelName", query = "update Hotel set name=:name where name=:name"),
+        @NamedQuery(name = "deleteHotel", query = "delete Hotel where name=:name")})
 
 @Entity
 @Table(name = "hotels")
@@ -22,6 +22,8 @@ public class Hotel {
     private int id;
     @Column(name = "name")
     private String name;
+    @Column(name = "address")
+    private String address;
     @Column(name = "stars")
     private int stars;
     @Column(name = "description")
@@ -37,19 +39,21 @@ public class Hotel {
     public Hotel() {
     }
 
-    public Hotel(String name, int stars, String description) {
+    public Hotel(String name, int stars, String description,String address) {
         this.name = name;
         this.stars = stars;
         this.description = description;
+        this.address=address;
     }
 
-    public Hotel(String name, int stars, String description, City city, Set<Room> roomSet, Set<Trip> tripSet) {
+    public Hotel(String name, String address,int stars, String description, City city, Set<Room> roomSet, Set<Trip> tripSet) {
         this.name = name;
         this.stars = stars;
         this.description = description;
         this.city = city;
         this.roomSet = roomSet;
         this.tripSet = tripSet;
+        this.address=address;
     }
 
     public int getId() {
@@ -108,12 +112,21 @@ public class Hotel {
         this.tripSet = tripSet;
     }
 
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "name='" + name + '\'' +
-                ", stars=" + stars +
-                ", description='" + description + '\'' +
-                '}';
-    }
-}
+     public String getAddress() {
+         return address;
+     }
+
+     public void setAddress(String address) {
+         this.address = address;
+     }
+
+     @Override
+     public String toString() {
+         return "Hotel{" +
+                 "name='" + name + '\'' +
+                 ", address='" + address + '\'' +
+                 ", stars=" + stars +
+                 ", description='" + description + '\'' +
+                 '}';
+     }
+ }

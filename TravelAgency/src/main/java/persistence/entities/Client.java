@@ -3,10 +3,10 @@ package persistence.entities;
 import javax.persistence.*;
 import java.util.Set;
 
-/*@NamedQueries({@NamedQuery(name = "selectClient", query = "select client from Client client where name=:name and surname=:surname"),
+@NamedQueries({@NamedQuery(name = "selectClient", query = "select client from Client client where name=:name and surname=:surname"),
         @NamedQuery(name = "updateAddress", query = "update Client set address=:address where name=:name and surname=:surname"),
         @NamedQuery(name = "updatePhoneNumber", query = "update Client set phoneNumber=:phoneNumber where name=:name and surname=:surname"),
-        @NamedQuery(name = "deleteClient",query = "delete from Client where name=:name and surname=:surname")})*/
+        @NamedQuery(name = "deleteClient", query = "delete from Client where name=:name and surname=:surname")})
 
 @Entity
 @Table(name = "clients")

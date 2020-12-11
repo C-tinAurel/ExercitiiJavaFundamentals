@@ -3,6 +3,8 @@ package frontend;
 import business.dto.AirportDTO;
 import business.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -16,30 +18,40 @@ public class AirportController {
     AirportService airportService;
 
     @PostMapping(path = "/insertAirport")
-    public String insertAirport(@RequestBody @Valid AirportDTO airportDTO) {
-        airportService.insertAirport(airportDTO);
-        return "Ati introdus Aeroportul : " + airportDTO.getName();
+    public ResponseEntity insertAirport(@RequestBody @Valid AirportDTO airportDTO) {
+        if (airportService.findAirportByName(airportDTO.getName()) == null) {
+            airportService.insertAirport(airportDTO);
+        }
+        return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("Aerportul " + airportDTO.getName() + " exista in baza de date");
     }
 
     @GetMapping(path = "/findAirportByName")
-    public AirportDTO findAirportByName(@RequestParam String name) {
+    public String findAirportByName(@RequestParam String name) {
         AirportDTO airportFind = airportService.findAirportByName(name);
-        return airportFind;
+        if (airportFind == null) {
+            return "Nu a fost gasit Aeroportul " + name;
+        }
+        return "Aeroportul: " + airportFind + " exista in baza de date";
     }
 
     @GetMapping(path = "/findAirportByCity")
-    public List<AirportDTO> findAirportByCity(@RequestParam String cityName) {
+    public String findAirportByCity(@RequestParam String cityName) {
         List<AirportDTO> airportDTOList = airportService.findAirportByCity(cityName);
-        return airportDTOList;
+        if (airportDTOList == null) {
+            return "Nu s-au gasit aeroporturile in Orasul " + cityName;
+        }
+        return "Aeroporturile gasit in Orasul " + cityName + " sunt " + airportDTOList;
     }
 
+
     @PutMapping(path = "/updateAirport")
-    public String updateAirport(@RequestParam String newName,@RequestParam String name){
-       Integer updatedRow=airportService.updateAirportName(newName,name);
-        if(updatedRow>0){
-            return "Numele Aeroportului a fost actualizat cu succes " ;
-        }
-        return "Numele Aerportului nu  s-a actualizat";
+    public String updateAirport(@RequestParam String newName, @RequestParam String name) {
+        Integer updatedRow = airportService.updateAirportName(newName, name);
+        if (updatedRow > 0) {
+            return "Numele Aeroportului " + name + " a fost actualizat cu succes ";
+        } else {
+            return "Numele Aerportului " + name + " nu  s-a actualizat";
         }
     }
+}
 

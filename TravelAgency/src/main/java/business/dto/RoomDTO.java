@@ -14,13 +14,10 @@ public class RoomDTO {
     @NotBlank
     @Pattern(regexp = "([a-z-A-Z])*")
     private String type;
-    @NotBlank
-    @NotEmpty
     @NotNull
-    @Pattern(regexp = "([0-9])*")
     private int numberAvailable;
     private boolean extraBed;
-    private Set<HotelDTO> hotelDTOSetSet;
+    private Set<HotelDTO> hotelDTOSet;
 
     public RoomDTO() {
     }
@@ -31,11 +28,11 @@ public class RoomDTO {
         this.extraBed = extraBed;
     }
 
-    public RoomDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String type, @NotBlank @NotEmpty @NotNull @Pattern(regexp = "([0-9])*") int numberAvailable, boolean extraBed, Set<HotelDTO> hotelDTOSetSet) {
+    public RoomDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String type, @NotBlank @NotEmpty @NotNull @Pattern(regexp = "([0-9])*") int numberAvailable, boolean extraBed, Set<HotelDTO> hotelDTOSet) {
         this.type = type;
         this.numberAvailable = numberAvailable;
         this.extraBed = extraBed;
-        this.hotelDTOSetSet = hotelDTOSetSet;
+        this.hotelDTOSet = hotelDTOSet;
     }
 
     public String getType() {
@@ -62,12 +59,12 @@ public class RoomDTO {
         this.extraBed = extraBed;
     }
 
-    public Set<HotelDTO> getHotelDTOSetSet() {
-        return hotelDTOSetSet;
+    public Set<HotelDTO> getHotelDTOSet() {
+        return hotelDTOSet;
     }
 
-    public void setHotelDTOSetSet(Set<HotelDTO> hotelDTOSetSet) {
-        this.hotelDTOSetSet = hotelDTOSetSet;
+    public void setHotelDTOSet(Set<HotelDTO> hotelDTOSet) {
+        this.hotelDTOSet = hotelDTOSet;
     }
 
     @Override

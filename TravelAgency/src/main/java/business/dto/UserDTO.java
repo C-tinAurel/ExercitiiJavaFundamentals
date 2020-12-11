@@ -16,17 +16,10 @@ public class UserDTO {
     @UniqueElements
     @Pattern(regexp = "([a-z-A-Z])*")
     private String userName;
-    @NotEmpty
-    @NotBlank
     @NotNull
-    @Pattern(regexp = "([a-z-A-Z])*")
     private String email;
-    @NotEmpty
-    @NotBlank
     @NotNull
-    @Pattern(regexp = "([a-z-A-Z-0-9])*")
     private String password;
-    @NotNull
     private boolean loggedIn;
     private boolean adminRole;
     @NotNull

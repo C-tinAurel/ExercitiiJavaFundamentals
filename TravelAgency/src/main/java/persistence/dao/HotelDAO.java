@@ -19,23 +19,22 @@ public class HotelDAO {
         session.close();
     }
 
-    public List<Hotel> findHotelByName(String name) {
+    public Hotel findHotelByName(String name) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query findHotelName = session.createNamedQuery("selectHotelName");
+        org.hibernate.query.Query findHotelName = session.createNamedQuery("selectHotelName");
         findHotelName.setParameter("name", name);
-        List<Hotel> hotelList = findHotelName.getResultList();
+        Hotel hotel =(Hotel) findHotelName.uniqueResult();
         session.getTransaction().commit();
         session.close();
-        return hotelList;
+        return hotel;
 
     }
 
-    public List<Hotel> findHotelByCity(String nameHotel,String cityName) {
+    public List<Hotel> findHotelByCity(String cityName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query findHotelByCity = session.createNamedQuery("selectHotelByCity");
-        findHotelByCity.setParameter("name",nameHotel);
         findHotelByCity.setParameter("name", cityName);
         List<Hotel> hotelList = findHotelByCity.getResultList();
         session.getTransaction().commit();
@@ -44,11 +43,10 @@ public class HotelDAO {
 
     }
 
-    public List<Hotel> findHotelByAvailableRoomAndType(String hotelName,String roomAvailable,String type) {
+    public List<Hotel> findHotelByAvailableRoomAndType(String roomAvailable,String type) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query findHotelByAvailableRoom = session.createNamedQuery("selectHotelByRoomAvailable");
-        findHotelByAvailableRoom.setParameter("name",hotelName);
         findHotelByAvailableRoom.setParameter("numberAvailable", roomAvailable);
         findHotelByAvailableRoom.setParameter("type",type);
         List<Hotel> hotelList = findHotelByAvailableRoom.getResultList();
@@ -56,11 +54,10 @@ public class HotelDAO {
         session.close();
         return hotelList;
     }
-    public List<Hotel> findHotelWithExtraBed(String name,boolean extraBed){
+    public List<Hotel> findHotelWithExtraBed(boolean extraBed){
         Session session=HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query findHotelWithExtraBed=session.createNamedQuery("selectHotelByExtraBedRoom");
-        findHotelWithExtraBed.setParameter("name",name);
         findHotelWithExtraBed.setParameter("extraBed",extraBed);
         List<Hotel> hotelList=findHotelWithExtraBed.getResultList();
         session.getTransaction().commit();
@@ -80,12 +77,12 @@ public class HotelDAO {
         return updatedRow;
     }
 
-    public Integer updateHotelDescription(String description, String name) {
+    public Integer updateHotelName(String name, String newName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query updateHotelDescription = session.createNamedQuery("updateHotelDescription");
-        updateHotelDescription.setParameter("description", description);
         updateHotelDescription.setParameter("name", name);
+        updateHotelDescription.setParameter("name", newName);
         Integer updatedRow = updateHotelDescription.executeUpdate();
         session.getTransaction().commit();
         session.close();

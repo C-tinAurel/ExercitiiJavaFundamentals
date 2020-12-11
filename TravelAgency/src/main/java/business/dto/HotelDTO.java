@@ -1,12 +1,5 @@
 package business.dto;
 
-import persistence.entities.City;
-import persistence.entities.Room;
-import persistence.entities.Trip;
-
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -19,34 +12,34 @@ public class HotelDTO {
     @NotEmpty
     @Pattern(regexp = "([a-z-A-Z])*")
     private String name;
-    @NotEmpty
     @NotBlank
+    @NotEmpty
     @NotNull
-    @Pattern(regexp = "([0-9])*")
+    private String address;
+    @NotNull
     private int stars;
-    @NotEmpty
-    @NotBlank
     @NotNull
-    @Pattern(regexp = "([a-z-A-Z-0-9])*")
     private String description;
     @NotNull
     private CityDTO cityDTO;
-    @NotNull
+
     private Set<RoomDTO> roomDTOSetSet;
-    @NotNull
+
     private Set<TripDTO> tripDTOSetSet;
 
     public HotelDTO() {
     }
 
-    public HotelDTO(@NotNull @NotBlank @NotEmpty @Pattern(regexp = "([a-z-A-Z])*") String name, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int stars, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([a-z-A-Z-0-9])*") String description) {
+    public HotelDTO(@NotNull @NotBlank @NotEmpty @Pattern(regexp = "([a-z-A-Z])*") String name, @NotBlank @NotEmpty @NotNull String address, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int stars, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([a-z-A-Z-0-9])*") String description) {
         this.name = name;
+        this.address = address;
         this.stars = stars;
         this.description = description;
     }
 
-    public HotelDTO(@NotNull @NotBlank @NotEmpty @Pattern(regexp = "([a-z-A-Z])*") String name, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int stars, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([a-z-A-Z-0-9])*") String description, @NotNull CityDTO cityDTO, @NotNull Set<RoomDTO> roomDTOSetSet, @NotNull Set<TripDTO> tripDTOSetSet) {
+    public HotelDTO(@NotNull @NotBlank @NotEmpty @Pattern(regexp = "([a-z-A-Z])*") String name, @NotBlank @NotEmpty @NotNull String address, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int stars, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([a-z-A-Z-0-9])*") String description, @NotNull CityDTO cityDTO, @NotNull Set<RoomDTO> roomDTOSetSet, @NotNull Set<TripDTO> tripDTOSetSet) {
         this.name = name;
+        this.address = address;
         this.stars = stars;
         this.description = description;
         this.cityDTO = cityDTO;
@@ -98,6 +91,14 @@ public class HotelDTO {
         return tripDTOSetSet;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public void setTripDTOSetSet(Set<TripDTO> tripDTOSetSet) {
         this.tripDTOSetSet = tripDTOSetSet;
     }
@@ -106,6 +107,7 @@ public class HotelDTO {
     public String toString() {
         return "HotelDTO{" +
                 "name='" + name + '\'' +
+                ", address='" + address + '\'' +
                 ", stars=" + stars +
                 ", description='" + description + '\'' +
                 '}';

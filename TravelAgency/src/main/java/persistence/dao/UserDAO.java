@@ -18,6 +18,7 @@ public class UserDAO {
         session.getTransaction().commit();
         session.close();
     }
+
     public List<User> findUserByName(String name){
         Session session=HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -40,12 +41,12 @@ public class UserDAO {
         return userList;
     }
 
-    public Integer updateUserEmail(String userName,String email){
+    public Integer updateUserName(String email,String userName){
         Session session=HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query updateUserEmail=session.createNamedQuery("updateUserEmail");
-        updateUserEmail.setParameter("userName",userName);
+        Query updateUserEmail=session.createNamedQuery("updateUserName");
         updateUserEmail.setParameter("email",email);
+        updateUserEmail.setParameter("userName",userName);
         Integer updatedRow=updateUserEmail.executeUpdate();
         session.getTransaction().commit();
         session.close();

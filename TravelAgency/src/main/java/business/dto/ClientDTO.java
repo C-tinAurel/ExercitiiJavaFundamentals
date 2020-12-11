@@ -22,19 +22,10 @@ public class ClientDTO {
     @Pattern(regexp = "([a-z-A-Z])*")
     private String surname;
     @NotNull
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp = "(0-9])*")
     private int yearOfBirth;
     @NotNull
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp = "([a-z-A-Z-0-9])*")
     private String address;
     @NotNull
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp = "(0-9])*")
     private int phoneNumber;
     @NotNull
     private UserDTO userDTO;

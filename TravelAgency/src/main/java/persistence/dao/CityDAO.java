@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import persistence.entities.City;
 
 import javax.persistence.Query;
-import java.util.List;
 
 @Repository
 public class CityDAO {
@@ -25,6 +24,9 @@ public class CityDAO {
         org.hibernate.query.Query findCity=session.createNamedQuery("selectCity");
         findCity.setParameter("name",name);
         City city=(City) findCity.uniqueResult();
+        if(city==null){
+            return null;
+        }
         session.getTransaction().commit();
         session.close();
         return city;

@@ -2,10 +2,10 @@ package persistence.entities;
 
 import javax.persistence.*;
 
- /*@NamedQueries({@NamedQuery(name = "selectUserName", query = "select user from User user where userName=:userName"),
+ @NamedQueries({@NamedQuery(name = "selectUserName", query = "select user from User user where userName=:userName"),
         @NamedQuery(name = "selectUserEmail", query = "select user from User user where email=:email"),
-        @NamedQuery(name = "updateUserEmail", query = "update User set email=:email where userName=:userName"),
-        @NamedQuery(name = "deleteUserName", query = "delete User where userName=:userName")})*/
+        @NamedQuery(name = "updateUserName", query = "update User set userName=:userName where email=:email"),
+        @NamedQuery(name = "deleteUserName", query = "delete User where userName=:userName")})
 @Entity
 @Table(name = "users")
 public class User {

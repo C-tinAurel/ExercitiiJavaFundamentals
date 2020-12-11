@@ -4,6 +4,7 @@ import business.dto.ContinentDTO;
 import business.dto.CountryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import persistence.dao.ContinentDAO;
 import persistence.dao.CountryDAO;
 import persistence.entities.Continent;
 import persistence.entities.Country;
@@ -15,26 +16,32 @@ public class CountryService {
     @Autowired
     CountryDAO countryDAO;
     @Autowired
-    ContinentService continentService;
+    ContinentDAO continentDAO;
 
 
     public void insertCountry(CountryDTO countryDTO) {
         Country country = new Country();
-        Country countryFound = countryDAO.findCountry(countryDTO.getName());
-        Continent continentFound = continentService.setContinent(countryDTO.getContinentDTO());
-        if (countryFound == null) {
-            country.setName(countryDTO.getName());
-            country.setContinent(continentFound);
-            countryDAO.insertCountry(country);
-        } else if (countryFound.getName().equalsIgnoreCase(countryDTO.getName())) {
-            country.setName(countryFound.getName());
-            country.setContinent(continentFound);
-            country.setId(continentFound.getId());
-        }
+        country.setName(countryDTO.getName());
+        setContinent(country,countryDTO);
+        countryDAO.insertCountry(country);
+    }
+
+    public void setContinent(Country country,CountryDTO countryDTO) {
+        Continent continentFound = continentDAO.findContinent(countryDTO.getContinentDTO().getName());
+       if(continentFound==null){
+           Continent continent = new Continent();
+           continent.setName(country.getContinent().getName());
+           country.setContinent(continent);
+       }else{
+           country.setContinent(continentFound);
+       }
     }
 
     public CountryDTO findCountry(String name) {
         Country country = countryDAO.findCountry(name);
+        if (country==null){
+            return null;
+        }
         CountryDTO countryDTO = new CountryDTO();
         countryDTO.setName(country.getName());
         ContinentDTO continentDTO = new ContinentDTO();
@@ -43,19 +50,5 @@ public class CountryService {
         return countryDTO;
     }
 
-    public Country setCountry(CountryDTO countryDTO) {
-        Country country = new Country();
-        Country countryFound = countryDAO.findCountry(countryDTO.getName());
-        Continent continentFound=continentService.setContinent(countryDTO.getContinentDTO());
-        if (countryFound == null) {
-            country.setName(countryDTO.getName());
-            country.setContinent(continentFound);
-            countryDAO.insertCountry(country);
-        } else if (!countryFound.getName().equalsIgnoreCase(countryDTO.getName())) {
-            country.setName(countryFound.getName());
-            country.setContinent(continentFound);
-            country.setId(countryFound.getId());
-        }
-        return country;
-    }
+
 }

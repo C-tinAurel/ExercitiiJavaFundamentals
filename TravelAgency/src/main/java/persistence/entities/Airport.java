@@ -20,8 +20,10 @@ public class Airport {
     private City city;
     @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
     private Set<Trip> tripSet;
-    @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
-    private Set<Flight> flightSet;
+    @OneToMany(mappedBy = "airportDeparture", cascade = CascadeType.ALL)
+    private Set<Flight> flightDepartureSet;
+    @OneToMany(mappedBy = "airportArriving",cascade = CascadeType.ALL)
+    private Set<Flight> flightArrivingSet;
 
     public Airport() {
     }
@@ -36,11 +38,12 @@ public class Airport {
         this.tripSet = tripSet;
     }
 
-    public Airport(String name, City city, Set<Trip> tripSet, Set<Flight> flightSet) {
+    public Airport(String name, City city, Set<Trip> tripSet, Set<Flight> flightDepartureSet, Set<Flight> flightArrivingSet) {
         this.name = name;
         this.city = city;
         this.tripSet = tripSet;
-        this.flightSet = flightSet;
+        this.flightDepartureSet = flightDepartureSet;
+        this.flightArrivingSet = flightArrivingSet;
     }
 
     public int getId() {
@@ -75,12 +78,20 @@ public class Airport {
         this.tripSet = tripSet;
     }
 
-    public Set<Flight> getFlightSet() {
-        return flightSet;
+    public Set<Flight> getFlightDepartureSet() {
+        return flightDepartureSet;
     }
 
-    public void setFlightSet(Set<Flight> flightSet) {
-        this.flightSet = flightSet;
+    public void setFlightDepartureSet(Set<Flight> flightDepartureSet) {
+        this.flightDepartureSet = flightDepartureSet;
+    }
+
+    public Set<Flight> getFlightArrivingSet() {
+        return flightArrivingSet;
+    }
+
+    public void setFlightArrivingSet(Set<Flight> flightArrivingSet) {
+        this.flightArrivingSet = flightArrivingSet;
     }
 
     @Override
