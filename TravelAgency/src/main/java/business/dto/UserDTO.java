@@ -10,11 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class UserDTO {
-    @NotEmpty
-    @NotBlank
     @NotNull
-    @UniqueElements
-    @Pattern(regexp = "([a-z-A-Z])*")
     private String userName;
     @NotNull
     private String email;

@@ -30,6 +30,17 @@ public class ClientDAO {
         session.close();
         return client;
     }
+    public Client findClientByUser(String userName,String password){
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        org.hibernate.query.Query findClientByUser=session.createNamedQuery("selectClientByUser");
+        findClientByUser.setParameter("userName",userName);
+        findClientByUser.setParameter("password",password);
+        Client client=(Client) findClientByUser.uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        return client;
+    }
 
     public Integer updateClientAddress(String address, String name, String surname) {
         Session session = HibernateUtil.getSessionFactory().openSession();

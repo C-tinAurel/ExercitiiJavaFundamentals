@@ -2,26 +2,29 @@ package frontend;
 
 import business.dto.ClientDTO;
 import business.service.ClientService;
+import business.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 @RestController
 public class ClientController {
 
     @Autowired
     ClientService clientService;
+    @Autowired
+    UserService userService;
 
     @PostMapping(path = "/insertClient")
-    public ResponseEntity insertClient(@RequestBody @Valid ClientDTO clientDTO) {
-        if (clientService.findClient(clientDTO.getName(), clientDTO.getSurname()) == null) {
-            clientService.insertClient(clientDTO);
-        }
-        return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("Clientul " + clientDTO + " exista in baza de date");
+    public String insertClient(@RequestBody @Valid ClientDTO clientDTO) {
+        clientService.insertClient(clientDTO);
+        return "Ati introdus clientul " + clientDTO.getName() + " " + clientDTO.getSurname();
     }
+
 
     @GetMapping(path = "/findClient")
     public String findClient(@RequestParam String name, @RequestParam String surname) {
@@ -32,6 +35,31 @@ public class ClientController {
         return "Clientul " + clientDTO + " exista in baza de date";
     }
 
+
+    @GetMapping(path = "/findClientByUser")
+    public String findClientByUser(@RequestParam String userName, @RequestParam String password) {
+        ClientDTO clientDTO = clientService.findClientByUser(userName, password);
+        if (clientDTO == null) {
+            return "Nu s-a gasit user-ul " + userName;
+        }
+        return userName + " exista in baza de date";
+    }
+
+    @PutMapping(path = "/updateLogOut")
+    public String updateLogOut(@RequestParam String userName){
+        Integer result=userService.updateLogIn(false,userName);
+        if (result==0){
+            return "Nu s-a gasit user-ul " +userName;
+        }
+        return "User-ul a fost deconectat " +userName;
+    }
+
+    /*@PutMapping(path = "/updateLogIn")
+    public String updateLogIn(@RequestParam String userName,@RequestParam String password){
+
+    }*/
+
+
     @PutMapping(path = "/updateClientAddress")
     public String updateClientAddress(@RequestParam String address, @RequestParam String name, @RequestParam String surname) {
         Integer updatedRow = clientService.updateClientAddress(address, name, surname);
@@ -40,6 +68,7 @@ public class ClientController {
         }
         return "Clientul nu a putut fi actualizat";
     }
+
 
     @PutMapping(path = "/updateClientPhone")
     public String updateClientPhone(@RequestParam int phoneNumber, @RequestParam String name, @RequestParam String surname) {
@@ -50,6 +79,7 @@ public class ClientController {
         return "Clientul nu a putut fi actualizat";
     }
 
+
     @DeleteMapping(path = "/deleteClient")
     public String deleteClient(@RequestParam String name, @RequestParam String surname) {
         Integer updatedRow = clientService.deleteClient(name, surname);
@@ -58,6 +88,5 @@ public class ClientController {
         }
         return "Clientul nu a putut fi actualizat";
     }
-
 
 }

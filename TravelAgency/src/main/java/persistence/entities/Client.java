@@ -1,9 +1,9 @@
 package persistence.entities;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @NamedQueries({@NamedQuery(name = "selectClient", query = "select client from Client client where name=:name and surname=:surname"),
+        @NamedQuery(name = "selectClientByUser", query = "select client from Client client inner join client.user user where user.userName=:userName and user.password=:password"),
         @NamedQuery(name = "updateAddress", query = "update Client set address=:address where name=:name and surname=:surname"),
         @NamedQuery(name = "updatePhoneNumber", query = "update Client set phoneNumber=:phoneNumber where name=:name and surname=:surname"),
         @NamedQuery(name = "deleteClient", query = "delete from Client where name=:name and surname=:surname")})

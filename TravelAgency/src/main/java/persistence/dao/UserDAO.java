@@ -11,54 +11,67 @@ import java.util.List;
 @Repository
 public class UserDAO {
 
-    public void insertUser(User user){
-        Session session= HibernateUtil.getSessionFactory().openSession();
+    public void insertUser(User user) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
         session.close();
     }
 
-    public List<User> findUserByName(String name){
-        Session session=HibernateUtil.getSessionFactory().openSession();
+    public User findUserByName(String userName) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query findUserByName=session.createNamedQuery("selectUserName");
-        findUserByName.setParameter("name",name);
-        List<User> userList=findUserByName.getResultList();
+        org.hibernate.query.Query findUserByName = session.createNamedQuery("selectUserName");
+        findUserByName.setParameter("userName", userName);
+        User user = (User) findUserByName.uniqueResult();
         session.getTransaction().commit();
         session.close();
-        return userList;
+        return user;
     }
 
-    public List<User> findUserByEmail(String email){
-        Session session=HibernateUtil.getSessionFactory().openSession();
+    public User findUserLogIn(String userName, String password) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query findUserByEmail=session.createNamedQuery("selectUserEmail");
-        findUserByEmail.setParameter("email",email);
-        List<User> userList=findUserByEmail.getResultList();
+        org.hibernate.query.Query findUserLogIn = session.createNamedQuery("selectUserPassword");
+        findUserLogIn.setParameter("password", password);
+        findUserLogIn.setParameter("userName", userName);
+        User user = (User) findUserLogIn.uniqueResult();
         session.getTransaction().commit();
         session.close();
-        return userList;
+        return user;
     }
 
-    public Integer updateUserName(String email,String userName){
-        Session session=HibernateUtil.getSessionFactory().openSession();
+    public Integer updateLogIn(boolean loggedIn, String userName) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query updateUserEmail=session.createNamedQuery("updateUserName");
-        updateUserEmail.setParameter("email",email);
-        updateUserEmail.setParameter("userName",userName);
-        Integer updatedRow=updateUserEmail.executeUpdate();
+        Query updateLogIn = session.createNamedQuery("updateUserLogIn");
+        updateLogIn.setParameter("loggedIn", loggedIn);
+        updateLogIn.setParameter("userName", userName);
+        Integer updatedRow = updateLogIn.executeUpdate();
         session.getTransaction().commit();
         session.close();
         return updatedRow;
     }
 
-    public Integer deleteUser(String userName){
-        Session session=HibernateUtil.getSessionFactory().openSession();
+    public Integer updateUserName(String userName, String email) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query deleteUser=session.createNamedQuery("deleteUserName");
-        deleteUser.setParameter("userName",userName);
-        Integer deletedRow=deleteUser.executeUpdate();
+        Query updateUserEmail = session.createNamedQuery("updateUserName");
+        updateUserEmail.setParameter("email", email);
+        updateUserEmail.setParameter("userName", userName);
+        Integer updatedRow = updateUserEmail.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+        return updatedRow;
+    }
+
+    public Integer deleteUser(String userName) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query deleteUser = session.createNamedQuery("deleteUserName");
+        deleteUser.setParameter("userName", userName);
+        Integer deletedRow = deleteUser.executeUpdate();
         session.getTransaction().commit();
         session.close();
         return deletedRow;

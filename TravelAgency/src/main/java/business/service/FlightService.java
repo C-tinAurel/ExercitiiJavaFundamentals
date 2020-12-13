@@ -39,11 +39,10 @@ public class FlightService {
 
     public void setAirportArriving(Flight flight, FlightDTO flightDTO) {
         Airport airportArrivingFound = airportDAO.findAirportByName(flightDTO.getAirportDTOArriving().getName());
-        City cityFound = cityDAO.findCity(flightDTO.getAirportDTOArriving().getCityDTO().getCountryDTO().getContinentDTO().getName());
         if (airportArrivingFound == null) {
             Airport airportArriving = new Airport();
             airportArriving.setName(flightDTO.getAirportDTOArriving().getName());
-            airportArriving.setCity(cityFound);
+         // airportArriving.setCity(cityFound);
             flight.setAirportArriving(airportArriving);
         } else {
             flight.setAirportArriving(airportArrivingFound);
@@ -53,11 +52,11 @@ public class FlightService {
 
     public void setAirportDeparture(Flight flight, FlightDTO flightDTO) {
         Airport airportDepartureFound = airportDAO.findAirportByName(flightDTO.getAirportDTODeparture().getName());
-         City cityFound = cityDAO.findCity(flightDTO.getAirportDTODeparture().getCityDTO().getCountryDTO().getContinentDTO().getName());
+       //  City cityFound = cityDAO.findCity(flightDTO.getAirportDTODeparture().getCityDTO().getCountryDTO().getContinentDTO().getName());
         Airport airportDeparture = new Airport();
         if (airportDepartureFound == null) {
             airportDeparture.setName(flightDTO.getAirportDTODeparture().getName());
-          airportDeparture.setCity(cityFound);
+     //     airportDeparture.setCity(cityFound);
             flight.setAirportDeparture(airportDeparture);
         } else {
             flight.setAirportDeparture(airportDepartureFound);
@@ -105,5 +104,6 @@ public class FlightService {
         flightDTO.setAirportDTODeparture(airportDTO);
         return flightDTO;
     }
+
 
 }
