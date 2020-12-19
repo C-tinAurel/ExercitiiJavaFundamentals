@@ -5,10 +5,8 @@ import business.service.ClientService;
 import business.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 
 @RestController
@@ -36,6 +34,7 @@ public class ClientController {
     }
 
 
+    //metoda de logare
     @GetMapping(path = "/findClientByUser")
     public String findClientByUser(@RequestParam String userName, @RequestParam String password) {
         ClientDTO clientDTO = clientService.findClientByUser(userName, password);
@@ -45,20 +44,26 @@ public class ClientController {
         return userName + " exista in baza de date";
     }
 
+    //metoda de "log out"
     @PutMapping(path = "/updateLogOut")
-    public String updateLogOut(@RequestParam String userName){
-        Integer result=userService.updateLogIn(false,userName);
-        if (result==0){
-            return "Nu s-a gasit user-ul " +userName;
+    public String updateLogOut(@RequestParam String userName) {
+        Integer result = userService.updateLogIn(false, userName);
+        if (result == 0) {
+            return "Nu s-a gasit user-ul " + userName;
         }
-        return "User-ul a fost deconectat " +userName;
+        return "User-ul a fost deconectat ";
     }
 
-    /*@PutMapping(path = "/updateLogIn")
-    public String updateLogIn(@RequestParam String userName,@RequestParam String password){
-
-    }*/
-
+    //metoda "daca esti logat"
+    @PutMapping(path = "/updateLogIn")
+    public String updateLogIn(@RequestParam String userName, @RequestParam String password) {
+        String result = userService.findUserLogIn(userName, password);
+        if (result != null) {
+            userService.updateLogIn(true, userName);
+            return "Sunteti logat";
+        }
+        return "Nu sunteti logat";
+    }
 
     @PutMapping(path = "/updateClientAddress")
     public String updateClientAddress(@RequestParam String address, @RequestParam String name, @RequestParam String surname) {

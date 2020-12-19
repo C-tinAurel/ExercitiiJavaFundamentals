@@ -31,7 +31,7 @@ public class AirportService {
     public void insertAirport(AirportDTO airportDTO) {
         Airport airport = new Airport();
         airport.setName(airportDTO.getName());
-        setCity(airportDTO,airport);
+        setCity(airportDTO, airport);
         airportDAO.insertAirport(airport);
 
     }
@@ -39,12 +39,12 @@ public class AirportService {
     public void setCity(AirportDTO airportDTO, Airport airport) {
         City city = new City();
         City cityFound = cityDAO.findCity(airportDTO.getCityDTO().getName());
-       Country countryFound = countryDAO.findCountry(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
-        if (cityFound==null){
+        Country countryFound = countryDAO.findCountry(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
+        if (cityFound == null) {
             city.setName(airportDTO.getCityDTO().getName());
-           city.setCountry(countryFound);
+            city.setCountry(countryFound);
             airport.setCity(city);
-        }else {
+        } else {
             airport.setCity(cityFound);
         }
     }
@@ -52,7 +52,7 @@ public class AirportService {
 
     public AirportDTO findAirportByName(String name) {
         Airport airport = airportDAO.findAirportByName(name);
-        if (airport==null){
+        if (airport == null) {
             return null;
         }
         AirportDTO airportDTO = new AirportDTO();
@@ -62,6 +62,7 @@ public class AirportService {
         airportDTO.setCityDTO(cityDTO);
         return airportDTO;
     }
+
 
     public List<AirportDTO> findAirportByCity(String cityName) {
         List<Airport> airportList = airportDAO.findAirportByCity(cityName);

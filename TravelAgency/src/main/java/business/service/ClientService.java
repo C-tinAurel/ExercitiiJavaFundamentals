@@ -67,6 +67,8 @@ public class ClientService {
     }
 
 
+
+    //aici fac log in-ul
     public ClientDTO findClientByUser(String userName, String password) {
         System.out.println("Aici afisam userName " + userName + " " + " Aici afisam parola " + password);
         MessageDigest messageDigest = null;

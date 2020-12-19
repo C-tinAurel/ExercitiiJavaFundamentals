@@ -20,9 +20,9 @@ public class Airport {
     private City city;
     @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
     private Set<Trip> tripSet;
-    @OneToMany(mappedBy = "airportDeparture", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "airportDeparture")
     private Set<Flight> flightDepartureSet;
-    @OneToMany(mappedBy = "airportArriving",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "airportArriving")
     private Set<Flight> flightArrivingSet;
 
     public Airport() {

@@ -5,6 +5,7 @@ import business.dto.HotelDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import persistence.dao.CityDAO;
+import persistence.dao.ContinentDAO;
 import persistence.dao.CountryDAO;
 import persistence.dao.HotelDAO;
 import persistence.entities.City;
@@ -23,9 +24,9 @@ public class HotelService {
     @Autowired
     CityDAO cityDAO;
     @Autowired
-    CityService cityService;
+    ContinentDAO continentDAO;
     @Autowired
-    CountryService countryService;
+    CountryDAO countryDAO;
 
 
     public void insertHotel(HotelDTO hotelDTO) {
@@ -39,15 +40,39 @@ public class HotelService {
     }
 
     public void setCity(HotelDTO hotelDTO,Hotel hotel) {
+        System.out.println("Afisam orasul " + hotelDTO.getCityDTO().getCountryDTO().getName());
         City cityFound=cityDAO.findCity(hotelDTO.getCityDTO().getName());
         if(cityFound==null){
             City city=new City();
             city.setName(hotelDTO.getCityDTO().getName());
-            countryService.setContinent(hotel.getCity().getCountry(),hotelDTO.getCityDTO().getCountryDTO());
-            cityService.setCountry(hotel.getCity(),hotelDTO.getCityDTO());
+            setCountry(hotelDTO,city);
             hotel.setCity(city);
         }else{
             hotel.setCity(cityFound);
+        }
+    }
+
+
+    public void setCountry (HotelDTO hotelDTO,City city){
+        Country countryFound=countryDAO.findCountry(hotelDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
+        if(countryFound==null){
+            Country country=new Country();
+            country.setName(hotelDTO.getCityDTO().getCountryDTO().getName());
+            setContinent(hotelDTO,country);
+            city.setCountry(country);
+        }else{
+            city.setCountry(countryFound);
+        }
+    }
+
+    public void setContinent(HotelDTO hotelDTO,Country country){
+        Continent continentFound=continentDAO.findContinent(hotelDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
+        if(continentFound==null){
+            Continent continent=new Continent();
+            continent.setName(hotelDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
+            country.setContinent(continent);
+        }else{
+            country.setContinent(continentFound);
         }
     }
 

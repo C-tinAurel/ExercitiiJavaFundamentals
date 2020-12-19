@@ -1,11 +1,22 @@
 package persistence.entities;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Set;
 
-/*@NamedQueries({@NamedQuery(name = "selectTripName", query = "select trip from Trip trip where name=:name"),
-        @NamedQuery(name = "selectTripPromoted", query = "select trip from Trip trip where name=:name and promoted=:promoted")})
-//mai trebuie adaugat select dupa continent si country*/
+@NamedQueries({@NamedQuery(name = "selectTripName", query = "select trip from Trip trip where name=:name"),
+        @NamedQuery(name = "selectTripPromoted", query = "select trip from Trip trip where  promoted=:promoted"),
+        @NamedQuery(name = "findAllTrips", query = "select trip from Trip trip"),
+        @NamedQuery(name = "findTripByCity", query = "select trip from Trip trip inner join trip.hotel hotel inner join hotel.city city where city.name=:name"),
+        @NamedQuery(name = "findTripByCountry", query = "select trip from Trip trip inner join trip.hotel hotel inner join hotel.city city inner join" +
+                " city.country country where name=:name"),
+        @NamedQuery(name = "findTripByContinent", query = "select trip from Trip trip inner join trip.hotel hotel inner join hotel.city city " +
+                "inner join city.country country inner join country.continent continent where name=:name"),
+        @NamedQuery(name = "findTripRecently", query = "select trip from Trip trip where departureDate=:departureDate"),
+        @NamedQuery(name = "updateNumbersOfDays", query = "update from Trip set numberDay=:numberDay where name=:name"),
+        @NamedQuery(name = "updateAvailableStock",query = "update from Trip set availableStock=:availableStock where name=:name"),
+        @NamedQuery(name = "deleteTrip", query = "delete from Trip where name=:name")})
+
 
 @Entity
 @Table(name = "trips")
@@ -16,9 +27,13 @@ public class Trip {
     @Column(name = "name")
     private String name;
     @Column(name = "departure_date")
-    private String departureDate;
+    private Date departureDate;
     @Column(name = "return_data")
-    private String returnData;
+    private Date returnData;
+    @JoinColumn(name = "check_in")
+    private Date checkIn;
+    @JoinColumn(name = "check_out")
+    private Date checkOut;
     @Column(name = "number_days")
     private int numberDay;
     @Column(name = "meal_type")
@@ -48,10 +63,12 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip( String name, String departureDate, String returnData, int numberDay, String mealType, double adultPrice, double kidPrice, boolean promoted, int adultNumber, int kidNumber, int availableStock) {
+    public Trip(String name, Date departureDate, Date returnData, Date checkIn, Date checkOut, int numberDay, String mealType, double adultPrice, double kidPrice, boolean promoted, int adultNumber, int kidNumber, int availableStock) {
         this.name = name;
         this.departureDate = departureDate;
         this.returnData = returnData;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
         this.numberDay = numberDay;
         this.mealType = mealType;
         this.adultPrice = adultPrice;
@@ -62,10 +79,12 @@ public class Trip {
         this.availableStock = availableStock;
     }
 
-    public Trip(String name, String departureDate, String returnData, int numberDay, String mealType, double adultPrice, double kidPrice, boolean promoted, int adultNumber, int kidNumber, int availableStock, Airport airport, Hotel hotel, Set<Purchase> purchaseSet) {
+    public Trip(String name, Date departureDate, Date returnData, Date checkIn, Date checkOut, int numberDay, String mealType, double adultPrice, double kidPrice, boolean promoted, int adultNumber, int kidNumber, int availableStock, Airport airport, Hotel hotel, Set<Purchase> purchaseSet) {
         this.name = name;
         this.departureDate = departureDate;
         this.returnData = returnData;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
         this.numberDay = numberDay;
         this.mealType = mealType;
         this.adultPrice = adultPrice;
@@ -79,27 +98,19 @@ public class Trip {
         this.purchaseSet = purchaseSet;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDepartureDate() {
+    public Date getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(String departureDate) {
+    public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
 
-    public String getReturnData() {
+    public Date getReturnData() {
         return returnData;
     }
 
-    public void setReturnData(String returnData) {
+    public void setReturnData(Date returnData) {
         this.returnData = returnData;
     }
 
@@ -199,11 +210,30 @@ public class Trip {
         this.purchaseSet = purchaseSet;
     }
 
+    public Date getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(Date checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public Date getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(Date checkOut) {
+        this.checkOut = checkOut;
+    }
+
     @Override
     public String toString() {
         return "Trip{" +
-                "departureDate=" + departureDate +
+                "name='" + name + '\'' +
+                ", departureDate=" + departureDate +
                 ", returnData=" + returnData +
+                ", checkIn=" + checkIn +
+                ", checkOut=" + checkOut +
                 ", numberDay=" + numberDay +
                 ", mealType='" + mealType + '\'' +
                 ", adultPrice=" + adultPrice +

@@ -5,19 +5,20 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.sql.Date;
 import java.util.Set;
 
 public class TripDTO {
     @NotNull
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp = "([0-9])*")
-    private String departureDate;
+    private String name;
     @NotNull
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp = "([0-9])*")
-    private String returnData;
+    private java.sql.Date departureDate;
+    @NotNull
+    private java.sql.Date returnData;
+    @NotNull
+    private Date checkIn;
+    @NotNull
+    private java.sql.Date checkOut;
     @NotNull
     @NotEmpty
     @NotBlank
@@ -57,9 +58,12 @@ public class TripDTO {
     public TripDTO() {
     }
 
-    public TripDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([0-9])*") String departureDate, @NotNull @NotEmpty @NotBlank @Pattern(regexp = "([0-9])*") String returnData, @NotNull @NotEmpty @NotBlank @Pattern(regexp = "([0-9])*") int numberDay, @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String mealType, @NotEmpty @NotBlank double adultPrice, @NotEmpty @NotBlank double kidPrice, boolean promoted, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int adultNumber, @NotEmpty @NotBlank int kidNumber, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int availableStock) {
+    public TripDTO(@NotNull String name, Date departureDate, Date returnData, @NotNull Date checkIn, Date checkOut, @NotNull @NotEmpty @NotBlank @Pattern(regexp = "([0-9])*") int numberDay, @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String mealType, @NotEmpty @NotBlank double adultPrice, @NotEmpty @NotBlank double kidPrice, boolean promoted, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int adultNumber, @NotEmpty @NotBlank int kidNumber, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int availableStock) {
+        this.name = name;
         this.departureDate = departureDate;
         this.returnData = returnData;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
         this.numberDay = numberDay;
         this.mealType = mealType;
         this.adultPrice = adultPrice;
@@ -70,8 +74,12 @@ public class TripDTO {
         this.availableStock = availableStock;
     }
 
-    public TripDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([0-9])*") String returnData, @NotNull @NotEmpty @NotBlank @Pattern(regexp = "([0-9])*") int numberDay, @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String mealType, @NotEmpty @NotBlank double adultPrice, @NotEmpty @NotBlank double kidPrice, boolean promoted, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int adultNumber, @NotEmpty @NotBlank int kidNumber, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int availableStock, @NotNull AirportDTO airportDTO, @NotNull HotelDTO hotelDTO, @NotNull Set<PurchaseDTO> purchaseDTOSetSet) {
+    public TripDTO(@NotNull String name, Date departureDate, Date returnData, @NotNull Date checkIn, Date checkOut, @NotNull @NotEmpty @NotBlank @Pattern(regexp = "([0-9])*") int numberDay, @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String mealType, @NotEmpty @NotBlank double adultPrice, @NotEmpty @NotBlank double kidPrice, boolean promoted, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int adultNumber, @NotEmpty @NotBlank int kidNumber, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int availableStock, @NotNull AirportDTO airportDTO, @NotNull HotelDTO hotelDTO, @NotNull Set<PurchaseDTO> purchaseDTOSetSet) {
+        this.name = name;
+        this.departureDate = departureDate;
         this.returnData = returnData;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
         this.numberDay = numberDay;
         this.mealType = mealType;
         this.adultPrice = adultPrice;
@@ -85,20 +93,36 @@ public class TripDTO {
         this.purchaseDTOSetSet = purchaseDTOSetSet;
     }
 
-    public String getDepartureDate() {
+    public Date getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(String departureDate) {
+    public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
 
-    public String getReturnData() {
+    public Date getReturnData() {
         return returnData;
     }
 
-    public void setReturnData(String returnData) {
+    public void setReturnData(Date returnData) {
         this.returnData = returnData;
+    }
+
+    public Date getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(Date checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public Date getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(Date checkOut) {
+        this.checkOut = checkOut;
     }
 
     public int getNumberDay() {
@@ -189,11 +213,22 @@ public class TripDTO {
         this.purchaseDTOSetSet = purchaseDTOSetSet;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "TripDTO{" +
-                "departureDate=" + departureDate +
+                "name='" + name + '\'' +
+                ", departureDate=" + departureDate +
                 ", returnData=" + returnData +
+                ", checkIn=" + checkIn +
+                ", checkOut=" + checkOut +
                 ", numberDay=" + numberDay +
                 ", mealType='" + mealType + '\'' +
                 ", adultPrice=" + adultPrice +

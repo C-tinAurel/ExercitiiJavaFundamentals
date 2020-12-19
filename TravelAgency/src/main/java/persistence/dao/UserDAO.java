@@ -30,13 +30,13 @@ public class UserDAO {
         return user;
     }
 
-    public User findUserLogIn(String userName, String password) {
+    public String findUserLogIn(String userName, String password) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        org.hibernate.query.Query findUserLogIn = session.createNamedQuery("selectUserPassword");
+        org.hibernate.query.Query findUserLogIn = session.createNamedQuery("checkUserByPassword");
         findUserLogIn.setParameter("password", password);
         findUserLogIn.setParameter("userName", userName);
-        User user = (User) findUserLogIn.uniqueResult();
+        String user = (String) findUserLogIn.uniqueResult();
         session.getTransaction().commit();
         session.close();
         return user;

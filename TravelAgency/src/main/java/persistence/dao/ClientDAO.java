@@ -54,6 +54,7 @@ public class ClientDAO {
         session.close();
         return updatedRow;
     }
+
     public Integer updateClientPhone(int phoneNumber,String name,String surname){
         Session session=HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();

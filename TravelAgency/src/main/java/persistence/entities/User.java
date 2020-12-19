@@ -4,7 +4,7 @@ import javax.persistence.*;
 
  @NamedQueries({@NamedQuery(name = "selectUserName", query = "select user from User user where userName=:userName"),
          @NamedQuery(name = "updateUserLogIn",query = "update from User set loggedIn=:loggedIn  where userName=:userName"),
-         @NamedQuery(name = "selectUserPassword",query = "select password from User user where userName=:userName and password=:password"),
+         @NamedQuery(name = "checkUserByPassword",query = "select password from User user where userName=:userName and password=:password"),
         @NamedQuery(name = "updateUserName", query = "update User set userName=:userName where email=:email"),
         @NamedQuery(name = "deleteUserName", query = "delete User where userName=:userName")})
 @Entity

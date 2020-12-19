@@ -57,7 +57,7 @@ public class UserService {
         return userDTO;
     }
 
-   /* public User findUserLogIn(String userName,String password){
+    public String findUserLogIn(String userName,String password){
         MessageDigest messageDigest= null;
         try {
             messageDigest = MessageDigest.getInstance("MD5");
@@ -66,8 +66,8 @@ public class UserService {
         }
         BigInteger bigInteger= new BigInteger(1,messageDigest.digest(password.getBytes()));
         String passwordCrypt=bigInteger.toString();
-       return userDAO.findUserLogIn(userName, password);
-    } */
+       return userDAO.findUserLogIn(userName,passwordCrypt);
+    }
 
     public Integer updateUserName(String userName,String email){
         Integer updatedRow=userDAO.updateUserName(userName, email);

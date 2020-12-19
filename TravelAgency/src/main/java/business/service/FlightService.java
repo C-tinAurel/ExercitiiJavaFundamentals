@@ -2,13 +2,17 @@ package business.service;
 
 import business.dto.AirportDTO;
 import business.dto.FlightDTO;
+import config.HibernateUtil;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import persistence.dao.AirportDAO;
 import persistence.dao.CityDAO;
+import persistence.dao.CountryDAO;
 import persistence.dao.FlightDAO;
 import persistence.entities.Airport;
 import persistence.entities.City;
+import persistence.entities.Country;
 import persistence.entities.Flight;
 
 import java.util.ArrayList;
@@ -23,6 +27,9 @@ public class FlightService {
     AirportDAO airportDAO;
     @Autowired
     CityDAO cityDAO;
+    @Autowired
+    CountryDAO countryDAO;
+
 
     public void insertFlight(FlightDTO flightDTO) {
         Flight flight = new Flight();
@@ -30,39 +37,45 @@ public class FlightService {
         flight.setAvailableSeat(flightDTO.getAvailableSeat());
         flight.setPrice(flightDTO.getPrice());
         flight.setFlightDataAndTimeArriving(flightDTO.getFlightDataAndTimeArriving());
-        setAirportArriving(flight, flightDTO);
         flight.setFlightDataAndTimeDeparture(flightDTO.getFlightDataAndTimeDeparture());
-        setAirportDeparture(flight, flightDTO);
+        setAirportDeparture(flightDTO, flight);
+        setAirportArriving(flightDTO, flight);
         flightDAO.insertFlight(flight);
     }
 
-
-    public void setAirportArriving(Flight flight, FlightDTO flightDTO) {
+    public void setAirportArriving(FlightDTO flightDTO, Flight flight) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         Airport airportArrivingFound = airportDAO.findAirportByName(flightDTO.getAirportDTOArriving().getName());
         if (airportArrivingFound == null) {
             Airport airportArriving = new Airport();
             airportArriving.setName(flightDTO.getAirportDTOArriving().getName());
-         // airportArriving.setCity(cityFound);
+            session.saveOrUpdate(airportArriving);
+            session.getTransaction().commit();
+            session.close();
             flight.setAirportArriving(airportArriving);
         } else {
             flight.setAirportArriving(airportArrivingFound);
         }
+
     }
 
-
-    public void setAirportDeparture(Flight flight, FlightDTO flightDTO) {
-        Airport airportDepartureFound = airportDAO.findAirportByName(flightDTO.getAirportDTODeparture().getName());
-       //  City cityFound = cityDAO.findCity(flightDTO.getAirportDTODeparture().getCityDTO().getCountryDTO().getContinentDTO().getName());
-        Airport airportDeparture = new Airport();
+    public void setAirportDeparture(FlightDTO flightDTO, Flight flight) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Airport airportDepartureFound = airportDAO.findAirportByName(flightDTO.getAirportDTOArriving().getName());
         if (airportDepartureFound == null) {
+            Airport airportDeparture = new Airport();
             airportDeparture.setName(flightDTO.getAirportDTODeparture().getName());
-     //     airportDeparture.setCity(cityFound);
+            session.saveOrUpdate(airportDeparture);
+            session.getTransaction().commit();
+            session.close();
             flight.setAirportDeparture(airportDeparture);
         } else {
             flight.setAirportDeparture(airportDepartureFound);
         }
-    }
 
+    }
 
     public List<FlightDTO> findFlightByAirportDeparture(String airportName) {
         List<Flight> flightList = flightDAO.findFlightByAirport(airportName);
@@ -91,17 +104,16 @@ public class FlightService {
         if (flightFound == null) {
             return null;
         }
-        Flight flight = new Flight();
-        flightDTO.setFlightNumber(flight.getFlightNumber());
-        flightDTO.setAvailableSeat(flight.getAvailableSeat());
-        flightDTO.setPrice(flight.getPrice());
-        flightDTO.setFlightDataAndTimeArriving(flight.getFlightDataAndTimeArriving());
-        flightDTO.setFlightDataAndTimeDeparture(flight.getFlightDataAndTimeDeparture());
-        AirportDTO airportDTO = new AirportDTO();
-        airportDTO.setName(flight.getAirportArriving().getName());
-        airportDTO.setName(flight.getAirportDeparture().getName());
+        flightDTO.setFlightNumber(flightFound.getFlightNumber());
+        flightDTO.setAvailableSeat(flightFound.getAvailableSeat());
+        flightDTO.setPrice(flightFound.getPrice());
+        flightDTO.setFlightDataAndTimeArriving(flightFound.getFlightDataAndTimeArriving());
+        flightDTO.setFlightDataAndTimeDeparture(flightFound.getFlightDataAndTimeDeparture());
+      /* AirportDTO airportDTO = new AirportDTO();
+        airportDTO.setName(flightFound.getAirportArriving().getName());
+        airportDTO.setName(flightFound.getAirportDeparture().getName());
         flightDTO.setAirportDTOArriving(airportDTO);
-        flightDTO.setAirportDTODeparture(airportDTO);
+        flightDTO.setAirportDTODeparture(airportDTO);*/
         return flightDTO;
     }
 

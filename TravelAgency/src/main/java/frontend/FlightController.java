@@ -17,9 +17,10 @@ public class FlightController {
 
    @PostMapping(path = "/insertFlight")
    //nu am reusit sa inserez
-   public ResponseEntity insertFlight(@RequestBody @Valid FlightDTO flightDTO){
+   public ResponseEntity<String> insertFlight(@RequestBody @Valid FlightDTO flightDTO){
        if(flightService.findFlightByFlightNumber(flightDTO.getFlightNumber())==null){
            flightService.insertFlight(flightDTO);
+
        }
        return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("Zborul " +flightDTO + " exista deja in baza de date");
    }
