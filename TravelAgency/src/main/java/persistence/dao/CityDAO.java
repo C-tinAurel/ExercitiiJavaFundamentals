@@ -13,9 +13,13 @@ public class CityDAO {
     public void insertCity(City city){
         Session session= HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(city);
+        session.saveOrUpdate(city);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public void insertCity(City city,Session session){
+        session.save(city);
     }
 
     public City findCity(String name){
@@ -31,6 +35,16 @@ public class CityDAO {
         session.close();
         return city;
     }
+    public City findCity(String name,Session session){
+        org.hibernate.query.Query findCity=session.createNamedQuery("selectCity");
+        findCity.setParameter("name",name);
+        City city=(City) findCity.uniqueResult();
+        if(city==null){
+            return null;
+        }
+        return city;
+    }
+
 
     public Integer deleteCityByName(String name){
         Session session=HibernateUtil.getSessionFactory().openSession();

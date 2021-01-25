@@ -15,44 +15,30 @@ public class TripDTO {
     private java.sql.Date departureDate;
     @NotNull
     private java.sql.Date returnData;
-    @NotNull
-    private Date checkIn;
+
+    private java.sql.Date checkIn;
     @NotNull
     private java.sql.Date checkOut;
     @NotNull
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp = "([0-9])*")
     private int numberDay;
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp = "([a-z-A-Z])*")
+    @NotNull
     private String mealType;
-    @NotEmpty
-    @NotBlank
+    @NotNull
     private double adultPrice;
-    @NotEmpty
-    @NotBlank
+    @NotNull
     private double kidPrice;
+    @NotNull
     private boolean promoted;
-    @NotEmpty
-    @NotBlank
     @NotNull
-    @Pattern(regexp = "([0-9])*")
     private int adultNumber;
-    @NotEmpty
-    @NotBlank
     private int kidNumber;
-    @NotEmpty
-    @NotBlank
     @NotNull
-    @Pattern(regexp = "([0-9])*")
     private int availableStock;
-    @NotNull
-    private AirportDTO airportDTO;
+    private AirportDTO airportDepartureDTO;
+    private AirportDTO airportArrivingDTO;
     @NotNull
     private HotelDTO hotelDTO;
-    @NotNull
+   // @NotNull
     private Set<PurchaseDTO> purchaseDTOSetSet;
 
     public TripDTO() {
@@ -74,7 +60,7 @@ public class TripDTO {
         this.availableStock = availableStock;
     }
 
-    public TripDTO(@NotNull String name, Date departureDate, Date returnData, @NotNull Date checkIn, Date checkOut, @NotNull @NotEmpty @NotBlank @Pattern(regexp = "([0-9])*") int numberDay, @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String mealType, @NotEmpty @NotBlank double adultPrice, @NotEmpty @NotBlank double kidPrice, boolean promoted, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int adultNumber, @NotEmpty @NotBlank int kidNumber, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int availableStock, @NotNull AirportDTO airportDTO, @NotNull HotelDTO hotelDTO, @NotNull Set<PurchaseDTO> purchaseDTOSetSet) {
+    public TripDTO(@NotNull String name, Date departureDate, Date returnData, Date checkIn, Date checkOut, @NotNull int numberDay, @NotNull String mealType, @NotNull double adultPrice, @NotNull double kidPrice, @NotNull boolean promoted, @NotNull int adultNumber, int kidNumber, @NotNull int availableStock, AirportDTO airportDepartureDTO, AirportDTO airportArrivingDTO, @NotNull HotelDTO hotelDTO) {
         this.name = name;
         this.departureDate = departureDate;
         this.returnData = returnData;
@@ -88,9 +74,9 @@ public class TripDTO {
         this.adultNumber = adultNumber;
         this.kidNumber = kidNumber;
         this.availableStock = availableStock;
-        this.airportDTO = airportDTO;
+        this.airportDepartureDTO = airportDepartureDTO;
+        this.airportArrivingDTO = airportArrivingDTO;
         this.hotelDTO = hotelDTO;
-        this.purchaseDTOSetSet = purchaseDTOSetSet;
     }
 
     public Date getDepartureDate() {
@@ -189,12 +175,20 @@ public class TripDTO {
         this.availableStock = availableStock;
     }
 
-    public AirportDTO getAirportDTO() {
-        return airportDTO;
+    public AirportDTO getAirportDepartureDTO() {
+        return airportDepartureDTO;
     }
 
-    public void setAirportDTO(AirportDTO airportDTO) {
-        this.airportDTO = airportDTO;
+    public void setAirportDepartureDTO(AirportDTO airportDepartureDTO) {
+        this.airportDepartureDTO = airportDepartureDTO;
+    }
+
+    public AirportDTO getAirportArrivingDTO() {
+        return airportArrivingDTO;
+    }
+
+    public void setAirportArrivingDTO(AirportDTO airportArrivingDTO) {
+        this.airportArrivingDTO = airportArrivingDTO;
     }
 
     public HotelDTO getHotelDTO() {

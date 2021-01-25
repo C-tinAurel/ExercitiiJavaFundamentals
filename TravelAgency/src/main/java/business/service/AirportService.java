@@ -37,18 +37,39 @@ public class AirportService {
     }
 
     public void setCity(AirportDTO airportDTO, Airport airport) {
-        City city = new City();
         City cityFound = cityDAO.findCity(airportDTO.getCityDTO().getName());
-        Country countryFound = countryDAO.findCountry(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
         if (cityFound == null) {
+            City city = new City();
             city.setName(airportDTO.getCityDTO().getName());
-            city.setCountry(countryFound);
             airport.setCity(city);
+            setCountry(airportDTO,city);
         } else {
             airport.setCity(cityFound);
         }
     }
 
+    public void setCountry(AirportDTO airportDTO,City city){
+        Country countryFound = countryDAO.findCountry(airportDTO.getCityDTO().getCountryDTO().getName());
+        if(countryFound==null){
+            Country country=new Country();
+            country.setName(airportDTO.getCityDTO().getCountryDTO().getName());
+            city.setCountry(country);
+            setContinent(airportDTO,country);
+        }else{
+            city.setCountry(countryFound);
+        }
+    }
+
+    public void setContinent(AirportDTO airportDTO,Country country){
+       Continent continentFound = continentDAO.findContinent(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
+        if(continentFound==null){
+            Continent continent=new Continent();
+           continent.setName(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
+            country.setContinent(continent);
+        }else{
+            country.setContinent(continentFound);
+        }
+    }
 
     public AirportDTO findAirportByName(String name) {
         Airport airport = airportDAO.findAirportByName(name);

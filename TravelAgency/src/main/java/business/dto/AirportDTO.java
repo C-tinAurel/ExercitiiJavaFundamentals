@@ -1,5 +1,7 @@
 package business.dto;
 
+import persistence.entities.Trip;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -14,7 +16,8 @@ public class AirportDTO {
     private String name;
     @NotNull
     private CityDTO cityDTO;
-    private Set<TripDTO> tripDTOSetSet;
+    private Set<TripDTO> tripDepartureDTOSet;
+    private Set<TripDTO> tripArrivingDTOSet;
     private Set<FlightDTO> flightDTODepartureSet;
     private Set<FlightDTO> flightDTOArrivingSet;
 
@@ -25,16 +28,18 @@ public class AirportDTO {
         this.name = name;
     }
 
-    public AirportDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String name, @NotNull CityDTO cityDTO, @NotNull Set<TripDTO> tripDTOSetSet) {
+    public AirportDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String name, @NotNull CityDTO cityDTO, Set<TripDTO> tripDepartureDTOSet, Set<TripDTO> tripArrivingDTOSet) {
         this.name = name;
         this.cityDTO = cityDTO;
-        this.tripDTOSetSet = tripDTOSetSet;
+        this.tripDepartureDTOSet = tripDepartureDTOSet;
+        this.tripArrivingDTOSet = tripArrivingDTOSet;
     }
 
-    public AirportDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String name, @NotNull CityDTO cityDTO, Set<TripDTO> tripDTOSetSet, Set<FlightDTO> flightDTODepartureSet, Set<FlightDTO> flightDTOArrivingSet) {
+    public AirportDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String name, @NotNull CityDTO cityDTO, Set<TripDTO> tripDepartureDTOSet, Set<TripDTO> tripArrivingDTOSet, Set<FlightDTO> flightDTODepartureSet, Set<FlightDTO> flightDTOArrivingSet) {
         this.name = name;
         this.cityDTO = cityDTO;
-        this.tripDTOSetSet = tripDTOSetSet;
+        this.tripDepartureDTOSet = tripDepartureDTOSet;
+        this.tripArrivingDTOSet = tripArrivingDTOSet;
         this.flightDTODepartureSet = flightDTODepartureSet;
         this.flightDTOArrivingSet = flightDTOArrivingSet;
     }
@@ -55,12 +60,20 @@ public class AirportDTO {
         this.cityDTO = cityDTO;
     }
 
-    public Set<TripDTO> getTripDTOSetSet() {
-        return tripDTOSetSet;
+    public Set<TripDTO> getTripDepartureDTOSet() {
+        return tripDepartureDTOSet;
     }
 
-    public void setTripDTOSetSet(Set<TripDTO> tripDTOSetSet) {
-        this.tripDTOSetSet = tripDTOSetSet;
+    public void setTripDepartureDTOSet(Set<TripDTO> tripDepartureDTOSet) {
+        this.tripDepartureDTOSet = tripDepartureDTOSet;
+    }
+
+    public Set<TripDTO> getTripArrivingDTOSet() {
+        return tripArrivingDTOSet;
+    }
+
+    public void setTripArrivingDTOSet(Set<TripDTO> tripArrivingDTOSet) {
+        this.tripArrivingDTOSet = tripArrivingDTOSet;
     }
 
     public Set<FlightDTO> getFlightDTODepartureSet() {

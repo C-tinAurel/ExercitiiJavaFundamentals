@@ -23,9 +23,9 @@ public class HotelDTO {
     @NotNull
     private CityDTO cityDTO;
 
-    private Set<RoomDTO> roomDTOSetSet;
+    private Set<RoomDTO> roomDTOSet;
 
-    private Set<TripDTO> tripDTOSetSet;
+    private Set<TripDTO> tripDTOSet;
 
     public HotelDTO() {
     }
@@ -37,14 +37,14 @@ public class HotelDTO {
         this.description = description;
     }
 
-    public HotelDTO(@NotNull @NotBlank @NotEmpty @Pattern(regexp = "([a-z-A-Z])*") String name, @NotBlank @NotEmpty @NotNull String address, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int stars, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([a-z-A-Z-0-9])*") String description, @NotNull CityDTO cityDTO, @NotNull Set<RoomDTO> roomDTOSetSet, @NotNull Set<TripDTO> tripDTOSetSet) {
+    public HotelDTO(@NotNull @NotBlank @NotEmpty @Pattern(regexp = "([a-z-A-Z])*") String name, @NotBlank @NotEmpty @NotNull String address, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([0-9])*") int stars, @NotEmpty @NotBlank @NotNull @Pattern(regexp = "([a-z-A-Z-0-9])*") String description, @NotNull CityDTO cityDTO, @NotNull Set<RoomDTO> roomDTOSet, @NotNull Set<TripDTO> tripDTOSet) {
         this.name = name;
         this.address = address;
         this.stars = stars;
         this.description = description;
         this.cityDTO = cityDTO;
-        this.roomDTOSetSet = roomDTOSetSet;
-        this.tripDTOSetSet = tripDTOSetSet;
+        this.roomDTOSet = roomDTOSet;
+        this.tripDTOSet = tripDTOSet;
     }
 
     public String getName() {
@@ -79,16 +79,16 @@ public class HotelDTO {
         this.cityDTO = cityDTO;
     }
 
-    public Set<RoomDTO> getRoomDTOSetSet() {
-        return roomDTOSetSet;
+    public Set<RoomDTO> getRoomDTOSet() {
+        return roomDTOSet;
     }
 
-    public void setRoomDTOSetSet(Set<RoomDTO> roomDTOSetSet) {
-        this.roomDTOSetSet = roomDTOSetSet;
+    public void setRoomDTOSetSet(Set<RoomDTO> roomDTOSet) {
+        this.roomDTOSet = roomDTOSet;
     }
 
-    public Set<TripDTO> getTripDTOSetSet() {
-        return tripDTOSetSet;
+    public Set<TripDTO> getTripDTOSet() {
+        return tripDTOSet;
     }
 
     public String getAddress() {
@@ -99,8 +99,8 @@ public class HotelDTO {
         this.address = address;
     }
 
-    public void setTripDTOSetSet(Set<TripDTO> tripDTOSetSet) {
-        this.tripDTOSetSet = tripDTOSetSet;
+    public void setTripDTOSetSet(Set<TripDTO> tripDTOSet) {
+        this.tripDTOSet = tripDTOSet;
     }
 
     @Override

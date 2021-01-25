@@ -19,6 +19,11 @@ public class HotelDAO {
         session.close();
     }
 
+    public void insertHotel(Hotel hotel,Session session) {
+        session.save(hotel);
+
+    }
+
     public Hotel findHotelByName(String name) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -27,6 +32,14 @@ public class HotelDAO {
         Hotel hotel =(Hotel) findHotelName.uniqueResult();
         session.getTransaction().commit();
         session.close();
+        return hotel;
+
+    }
+
+    public Hotel findHotelByName(String name,Session session) {
+        org.hibernate.query.Query findHotelName = session.createNamedQuery("selectHotelName");
+        findHotelName.setParameter("name", name);
+        Hotel hotel =(Hotel) findHotelName.uniqueResult();
         return hotel;
 
     }

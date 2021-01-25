@@ -17,7 +17,7 @@ public class Room {
     private int numberAvailable;
     @Column(name = "extra_bed")
     private boolean extraBed;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "rooms_hotels", joinColumns = {@JoinColumn(name = "rooms_id")},
             inverseJoinColumns = {@JoinColumn(name = "hotels_id")})
     private Set<Hotel> hotelSet;

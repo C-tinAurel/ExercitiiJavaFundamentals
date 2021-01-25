@@ -11,8 +11,6 @@ import persistence.dao.CityDAO;
 import persistence.dao.CountryDAO;
 import persistence.dao.FlightDAO;
 import persistence.entities.Airport;
-import persistence.entities.City;
-import persistence.entities.Country;
 import persistence.entities.Flight;
 
 import java.util.ArrayList;
@@ -76,6 +74,7 @@ public class FlightService {
         }
 
     }
+
 
     public List<FlightDTO> findFlightByAirportDeparture(String airportName) {
         List<Flight> flightList = flightDAO.findFlightByAirport(airportName);

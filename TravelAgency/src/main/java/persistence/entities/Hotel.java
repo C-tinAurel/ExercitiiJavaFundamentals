@@ -31,9 +31,9 @@ public class Hotel {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cities_id")
     private City city;
-    @ManyToMany(mappedBy = "hotelSet", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "hotelSet",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<Room> roomSet;
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
     private Set<Trip> tripSet;
 
     public Hotel() {

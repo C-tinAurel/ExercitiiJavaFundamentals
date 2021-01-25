@@ -21,6 +21,10 @@ public class FlightDAO {
         session.close();
     }
 
+    public void insertFlight(Flight flight,Session session){
+        session.save(flight);
+    }
+
     public List<Flight> findFlightByAirport(String airportName){
         Session session=HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();

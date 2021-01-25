@@ -18,11 +18,13 @@ public class Airport {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cities_id")
     private City city;
-    @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
-    private Set<Trip> tripSet;
     @OneToMany(mappedBy = "airportDeparture")
-    private Set<Flight> flightDepartureSet;
+    private Set<Trip> tripDepartureSet;
     @OneToMany(mappedBy = "airportArriving")
+    private Set<Trip> tripArrivingSet;
+    @OneToMany(mappedBy = "airportDeparture",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Set<Flight> flightDepartureSet;
+    @OneToMany(mappedBy = "airportArriving",cascade = CascadeType.ALL)
     private Set<Flight> flightArrivingSet;
 
     public Airport() {
@@ -32,16 +34,18 @@ public class Airport {
         this.name = name;
     }
 
-    public Airport(String name, City city, Set<Trip> tripSet) {
+    public Airport(String name, City city, Set<Trip> tripDepartureSet, Set<Trip> tripArrivingSet) {
         this.name = name;
         this.city = city;
-        this.tripSet = tripSet;
+        this.tripDepartureSet = tripDepartureSet;
+        this.tripArrivingSet = tripArrivingSet;
     }
 
-    public Airport(String name, City city, Set<Trip> tripSet, Set<Flight> flightDepartureSet, Set<Flight> flightArrivingSet) {
+    public Airport(String name, City city, Set<Trip> tripDepartureSet, Set<Trip> tripArrivingSet, Set<Flight> flightDepartureSet, Set<Flight> flightArrivingSet) {
         this.name = name;
         this.city = city;
-        this.tripSet = tripSet;
+        this.tripDepartureSet = tripDepartureSet;
+        this.tripArrivingSet = tripArrivingSet;
         this.flightDepartureSet = flightDepartureSet;
         this.flightArrivingSet = flightArrivingSet;
     }
@@ -70,12 +74,20 @@ public class Airport {
         this.city = city;
     }
 
-    public Set<Trip> getTripSet() {
-        return tripSet;
+    public Set<Trip> getTripDepartureSet() {
+        return tripDepartureSet;
     }
 
-    public void setTripSet(Set<Trip> tripSet) {
-        this.tripSet = tripSet;
+    public void setTripDepartureSet(Set<Trip> tripDepartureSet) {
+        this.tripDepartureSet = tripDepartureSet;
+    }
+
+    public Set<Trip> getTripArrivingSet() {
+        return tripArrivingSet;
+    }
+
+    public void setTripArrivingSet(Set<Trip> tripArrivingSet) {
+        this.tripArrivingSet = tripArrivingSet;
     }
 
     public Set<Flight> getFlightDepartureSet() {

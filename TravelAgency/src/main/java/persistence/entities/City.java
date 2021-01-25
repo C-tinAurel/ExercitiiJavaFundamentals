@@ -17,9 +17,9 @@ public class City {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "countries_id")
     private Country country;
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city",cascade = CascadeType.ALL)
     private Set<Airport> airportSet;
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city")
     private Set<Hotel> hotelSet;
 
     public City() {

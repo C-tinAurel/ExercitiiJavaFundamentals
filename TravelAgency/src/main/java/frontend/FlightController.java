@@ -22,7 +22,7 @@ public class FlightController {
            flightService.insertFlight(flightDTO);
 
        }
-       return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("Zborul " +flightDTO + " exista deja in baza de date");
+       return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("Zborul " +flightDTO + " exista  in baza de date");
    }
 
    @GetMapping(path = "/findFlightNumber")

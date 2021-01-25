@@ -2,19 +2,20 @@ package business.service;
 
 import business.dto.CityDTO;
 import business.dto.HotelDTO;
+import business.dto.RoomDTO;
+import business.dto.TripDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import persistence.dao.CityDAO;
 import persistence.dao.ContinentDAO;
 import persistence.dao.CountryDAO;
 import persistence.dao.HotelDAO;
-import persistence.entities.City;
-import persistence.entities.Continent;
-import persistence.entities.Country;
-import persistence.entities.Hotel;
+import persistence.entities.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class HotelService {
@@ -36,9 +37,24 @@ public class HotelService {
         hotel.setStars(hotelDTO.getStars());
         hotel.setAddress(hotelDTO.getAddress());
         setCity(hotelDTO,hotel);
+        setRoom(hotelDTO,hotel);
         hotelDAO.insertHotel(hotel);
     }
 
+    public void setRoom(HotelDTO hotelDTO,Hotel hotel) {
+        Set<Room> roomSet = new HashSet<>();
+        for (RoomDTO roomDTO : hotelDTO.getRoomDTOSet()) {
+            Room room = new Room();
+            room.setType(roomDTO.getType());
+            room.setNumberAvailable(roomDTO.getNumberAvailable());
+            room.setExtraBed(roomDTO.isExtraBed());
+            roomSet.add(room);
+        }
+
+        hotel.setRoomSet(roomSet);
+
+
+    }
     public void setCity(HotelDTO hotelDTO,Hotel hotel) {
         System.out.println("Afisam orasul " + hotelDTO.getCityDTO().getCountryDTO().getName());
         City cityFound=cityDAO.findCity(hotelDTO.getCityDTO().getName());
