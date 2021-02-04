@@ -19,7 +19,7 @@ public class City {
     private Country country;
     @OneToMany(mappedBy = "city",cascade = CascadeType.ALL)
     private Set<Airport> airportSet;
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city",cascade = CascadeType.ALL)
     private Set<Hotel> hotelSet;
 
     public City() {

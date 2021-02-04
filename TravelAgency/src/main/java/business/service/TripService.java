@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import persistence.dao.*;
 import persistence.entities.*;
 
+import javax.transaction.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,8 +24,6 @@ public class TripService {
     AirportDAO airportDAO;
     @Autowired
     HotelDAO hotelDAO;
-    @Autowired
-    FlightDAO flightDAO;
     @Autowired
     ContinentDAO continentDAO;
     @Autowired
@@ -50,25 +49,21 @@ public class TripService {
         trip.setAdultNumber(tripDTO.getAdultNumber());
         trip.setKidNumber(tripDTO.getKidNumber());
         trip.setAvailableStock(tripDTO.getAvailableStock());
-        setHotel(trip, tripDTO);
-        setAirportDeparture(tripDTO, trip);
-        setAirportArriving(tripDTO, trip);
-        tripDAO.insertTrip(trip);
-        session.saveOrUpdate(trip);
+        setHotel(trip, tripDTO, session);
+        setAirport(tripDTO, trip, session);
+        tripDAO.insertTrip(trip, session);
         session.getTransaction().commit();
         session.close();
+
     }
 
-    public void setHotel(Trip trip, TripDTO tripDTO) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+    public void setHotel(Trip trip, TripDTO tripDTO, Session session) {
         Continent continentHotel = null;
-        continentHotel = continentDAO.findContinent(tripDTO.getHotelDTO().getCityDTO().getCountryDTO().getContinentDTO().getName(), session);
-        if (continentHotel == null) {
-            continentHotel = new Continent();
-            continentHotel.setName(tripDTO.getHotelDTO().getCityDTO().getCountryDTO().getContinentDTO().getName());
-            session.saveOrUpdate(continentHotel);
-        }
+            continentHotel = continentDAO.findContinent(tripDTO.getHotelDTO().getCityDTO().getCountryDTO().getContinentDTO().getName(), session);
+            if (continentHotel == null) {
+                continentHotel = new Continent();
+                continentHotel.setName(tripDTO.getHotelDTO().getCityDTO().getCountryDTO().getContinentDTO().getName());
+            }
         Country countryHotel = null;
         countryHotel = countryDAO.findCountry(tripDTO.getHotelDTO().getCityDTO().getCountryDTO().getName(), session);
         if (countryHotel == null) {
@@ -95,8 +90,7 @@ public class TripService {
             setRoom(tripDTO, hotel);
         }
         trip.setHotel(hotel);
-        session.getTransaction().commit();
-        session.close();
+
     }
 
     public void setRoom(TripDTO tripDTO, Hotel hotel) {
@@ -112,109 +106,52 @@ public class TripService {
     }
 
 
-    public void setAirportDeparture(TripDTO tripDTO, Trip trip) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Continent continentAirportDeparture = new Continent();
-        if (!tripDTO.getHotelDTO().getCityDTO().getCountryDTO().getContinentDTO().getName().equalsIgnoreCase(continentAirportDeparture.getName())) {
-            continentAirportDeparture = continentDAO.findContinent(tripDTO.getAirportDepartureDTO().getCityDTO().getCountryDTO().getContinentDTO().getName(), session);
-            if (continentAirportDeparture == null) {
-                continentAirportDeparture = new Continent();
-                continentAirportDeparture.setName(tripDTO.getAirportDepartureDTO().getCityDTO().getCountryDTO().getContinentDTO().getName());
-            }
+    public void setAirport(TripDTO tripDTO, Trip trip, Session session) {
+        Continent continent = null;
+        continent = continentDAO.findContinent(tripDTO.getAirportDTO().getCityDTO().getCountryDTO().getContinentDTO().getName(), session);
+        if (continent == null) {
+            continent = new Continent();
+            continent.setName(tripDTO.getAirportDTO().getCityDTO().getCountryDTO().getContinentDTO().getName());
         }
-        Country countryAirportDeparture = null;
-        countryAirportDeparture = countryDAO.findCountry(tripDTO.getAirportDepartureDTO().getCityDTO().getCountryDTO().getName(), session);
-        if (countryAirportDeparture == null) {
-            countryAirportDeparture = new Country();
-            countryAirportDeparture.setName(tripDTO.getAirportDepartureDTO().getCityDTO().getCountryDTO().getName());
-            if (continentAirportDeparture == null) {
-                countryAirportDeparture.setContinent(continentAirportDeparture);
-            } else {
-                countryAirportDeparture.setContinent(trip.getHotel().getCity().getCountry().getContinent());
-            }
+        Country country = null;
+        country = countryDAO.findCountry(tripDTO.getAirportDTO().getCityDTO().getCountryDTO().getName(), session);
+        if (country == null) {
+            country = new Country();
+            country.setName(tripDTO.getAirportDTO().getCityDTO().getCountryDTO().getName());
+            country.setContinent(continent);
         }
-        City cityAirportDeparture = null;
-        cityAirportDeparture = cityDAO.findCity(tripDTO.getAirportDepartureDTO().getCityDTO().getName(), session);
-        if (cityAirportDeparture == null) {
-            cityAirportDeparture = new City();
-            cityAirportDeparture.setName(tripDTO.getAirportDepartureDTO().getCityDTO().getName());
-            cityAirportDeparture.setCountry(countryAirportDeparture);
+        City city = null;
+        city = cityDAO.findCity(tripDTO.getAirportDTO().getCityDTO().getName(), session);
+        if (city == null) {
+            city = new City();
+            city.setName(tripDTO.getAirportDTO().getCityDTO().getName());
+            city.setCountry(country);
         }
-        Airport airportDeparture = null;
-        airportDeparture = airportDAO.findAirportByName(tripDTO.getAirportDepartureDTO().getName(), session);
-        if (airportDeparture == null) {
-            airportDeparture = new Airport();
-            airportDeparture.setName(tripDTO.getAirportDepartureDTO().getName());
-            airportDeparture.setCity(cityAirportDeparture);
+        Airport airport = null;
+        airport = airportDAO.findAirportByName(tripDTO.getAirportDTO().getName(), session);
+        if (airport == null) {
+            airport = new Airport();
+            airport.setName(tripDTO.getAirportDTO().getName());
+            airport.setCity(city);
+            setFlight(tripDTO, airport);
         }
-        //   setFlightArriving(tripDTO,airportDeparture);
-        trip.setAirportDeparture(airportDeparture);
-        session.getTransaction().commit();
-        session.close();
+        trip.setAirport(airport);
+
     }
 
-    public void setFlightDeparture(TripDTO tripDTO, Airport airportDeparture) {
+
+    public void setFlight(TripDTO tripDTO, Airport airport) {
         Set<Flight> flightSet = new HashSet<>();
-        for (FlightDTO flightDTO : tripDTO.getAirportDepartureDTO().getFlightDTODepartureSet()) {
-            Flight flight = new Flight();
-            flight.setFlightNumber(flightDTO.getFlightNumber());
-            flight.setFlightDataAndTimeDeparture(flightDTO.getFlightDataAndTimeDeparture());
-            flight.setAvailableSeat(flightDTO.getAvailableSeat());
-            flight.setPrice(flightDTO.getPrice());
-            flightSet.add(flight);
-        }
-        airportDeparture.setFlightDepartureSet(flightSet);
-    }
-
-
-    public void setAirportArriving(TripDTO tripDTO, Trip trip) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Continent continentAirportArriving = null;
-        continentAirportArriving = continentDAO.findContinent(tripDTO.getAirportArrivingDTO().getCityDTO().getCountryDTO().getContinentDTO().getName(), session);
-        if (continentAirportArriving == null) {
-            continentAirportArriving = new Continent();
-            continentAirportArriving.setName(tripDTO.getAirportArrivingDTO().getCityDTO().getCountryDTO().getContinentDTO().getName());
-        }
-        Country countryAirportArriving = null;
-        countryAirportArriving = countryDAO.findCountry(tripDTO.getAirportArrivingDTO().getCityDTO().getCountryDTO().getName(), session);
-        if (countryAirportArriving == null) {
-            countryAirportArriving = new Country();
-            countryAirportArriving.setName(tripDTO.getAirportArrivingDTO().getCityDTO().getCountryDTO().getName());
-            countryAirportArriving.setContinent(continentAirportArriving);
-        }
-        City cityAirportArriving = null;
-        cityAirportArriving = cityDAO.findCity(tripDTO.getAirportArrivingDTO().getCityDTO().getName(), session);
-        if (cityAirportArriving == null) {
-            cityAirportArriving = new City();
-            cityAirportArriving.setName(tripDTO.getAirportArrivingDTO().getCityDTO().getName());
-            cityAirportArriving.setCountry(countryAirportArriving);
-        }
-        Airport airportArriving = null;
-        airportArriving = airportDAO.findAirportByName(tripDTO.getAirportArrivingDTO().getName(), session);
-        if (airportArriving == null) {
-            airportArriving = new Airport();
-            airportArriving.setName(tripDTO.getAirportArrivingDTO().getName());
-            airportArriving.setCity(cityAirportArriving);
-            //setFlightArriving(tripDTO,airportArriving);
-        }
-        trip.setAirportArriving(airportArriving);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    public void setFlightArriving(TripDTO tripDTO, Airport airportArriving) {
-        Set<Flight> flightSet = new HashSet<>();
-        for (FlightDTO flightDTO : tripDTO.getAirportArrivingDTO().getFlightDTOArrivingSet()) {
+        for (FlightDTO flightDTO : tripDTO.getAirportDTO().getFlightDTOSet()) {
             Flight flight = new Flight();
             flight.setFlightNumber(flightDTO.getFlightNumber());
             flight.setFlightDataAndTimeArriving(flightDTO.getFlightDataAndTimeArriving());
+            flight.setFlightDataAndTimeDeparture(flightDTO.getFlightDataAndTimeDeparture());
             flight.setPrice(flightDTO.getPrice());
             flight.setAvailableSeat(flightDTO.getAvailableSeat());
             flightSet.add(flight);
         }
-        airportArriving.setFlightDepartureSet(flightSet);
+        airport.setFlightSet(flightSet);
     }
 
 
@@ -434,13 +371,13 @@ public class TripService {
     }
 
 
-    public Integer updateTripAvailableStock(int availableStock,String name){
-        Integer updateRow=tripDAO.updateTripAvailableStock(availableStock, name);
+    public Integer updateTripAvailableStock(int availableStock, String name) {
+        Integer updateRow = tripDAO.updateTripAvailableStock(availableStock, name);
         return updateRow;
     }
 
-    public Integer deleteTripByName(String name){
-        Integer updatedRow=tripDAO.deleteTripByName(name);
+    public Integer deleteTripByName(String name) {
+        Integer updatedRow = tripDAO.deleteTripByName(name);
         return updatedRow;
     }
 }

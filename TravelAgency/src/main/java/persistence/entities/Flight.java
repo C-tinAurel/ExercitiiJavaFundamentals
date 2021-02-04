@@ -1,15 +1,11 @@
 package persistence.entities;
-
-import business.dto.AirportDTO;
-
 import javax.persistence.*;
 
 
- @NamedQueries({@NamedQuery(name = "selectFlightsFromAirport", query = "select flight from Flight flight inner join flight.airportDeparture airport " +
+@NamedQueries({@NamedQuery(name = "selectFlightsFromAirport", query = "select flight from Flight flight inner join flight.airport airport " +
         "where airport.name=:name "),
-         @NamedQuery(name = "selectFlightByFlightNumber",query = "select flight from Flight flight where flightNumber=:flightNumber"),
-//        @NamedQuery(name = "updateFlightPrice", query = "update Flight set price=:price where airportDeparture=:airportDeparture")
-        })
+        @NamedQuery(name = "selectFlightByFlightNumber", query = "select flight from Flight flight where flightNumber=:flightNumber"),
+})
 
 @Entity
 @Table(name = "flights")
@@ -27,35 +23,31 @@ public class Flight {
     private double price;
     @Column(name = "available_seats")
     private int availableSeat;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "airports_arriving")
-    private Airport airportArriving;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "airports_departure")
-    private Airport airportDeparture;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "airports_id")
+    private Airport airport;
 
     public Flight() {
     }
 
-     public Flight(String flightNumber, String flightDataAndTimeArriving, String flightDataAndTimeDeparture, double price, int availableSeat) {
-         this.flightNumber = flightNumber;
-         this.flightDataAndTimeArriving = flightDataAndTimeArriving;
-         this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
-         this.price = price;
-         this.availableSeat = availableSeat;
-     }
+    public Flight(String flightNumber, String flightDataAndTimeArriving, String flightDataAndTimeDeparture, double price, int availableSeat) {
+        this.flightNumber = flightNumber;
+        this.flightDataAndTimeArriving = flightDataAndTimeArriving;
+        this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
+        this.price = price;
+        this.availableSeat = availableSeat;
+    }
 
-     public Flight(String flightNumber, String flightDataAndTimeArriving, String flightDataAndTimeDeparture, double price, int availableSeat, Airport airportArriving, Airport airportDeparture) {
-         this.flightNumber = flightNumber;
-         this.flightDataAndTimeArriving = flightDataAndTimeArriving;
-         this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
-         this.price = price;
-         this.availableSeat = availableSeat;
-         this.airportArriving = airportArriving;
-         this.airportDeparture = airportDeparture;
-     }
+    public Flight(String flightNumber, String flightDataAndTimeArriving, String flightDataAndTimeDeparture, double price, int availableSeat, Airport airport) {
+        this.flightNumber = flightNumber;
+        this.flightDataAndTimeArriving = flightDataAndTimeArriving;
+        this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
+        this.price = price;
+        this.availableSeat = availableSeat;
+        this.airport = airport;
+    }
 
-     public int getId() {
+    public int getId() {
         return id;
     }
 
@@ -71,63 +63,55 @@ public class Flight {
         return availableSeat;
     }
 
-     public String getFlightNumber() {
-         return flightNumber;
-     }
+    public String getFlightNumber() {
+        return flightNumber;
+    }
 
-     public void setFlightNumber(String flightNumber) {
-         this.flightNumber = flightNumber;
-     }
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
+    }
 
-     public void setAvailableSeat(int availableSeat) {
+    public void setAvailableSeat(int availableSeat) {
         this.availableSeat = availableSeat;
     }
 
-     public String getFlightDataAndTimeArriving() {
-         return flightDataAndTimeArriving;
-     }
+    public String getFlightDataAndTimeArriving() {
+        return flightDataAndTimeArriving;
+    }
 
-     public void setFlightDataAndTimeArriving(String flightDataAndTimeArriving) {
-         this.flightDataAndTimeArriving = flightDataAndTimeArriving;
-     }
+    public void setFlightDataAndTimeArriving(String flightDataAndTimeArriving) {
+        this.flightDataAndTimeArriving = flightDataAndTimeArriving;
+    }
 
-     public String getFlightDataAndTimeDeparture() {
-         return flightDataAndTimeDeparture;
-     }
+    public String getFlightDataAndTimeDeparture() {
+        return flightDataAndTimeDeparture;
+    }
 
-     public void setFlightDataAndTimeDeparture(String flightDataAndTimeDeparture) {
-         this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
-     }
+    public void setFlightDataAndTimeDeparture(String flightDataAndTimeDeparture) {
+        this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
+    }
 
-     public void setPrice(double price) {
-         this.price = price;
-     }
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-     public Airport getAirportArriving() {
-         return airportArriving;
-     }
+    public Airport getAirport() {
+        return airport;
+    }
 
-     public void setAirportArriving(Airport airportArriving) {
-         this.airportArriving = airportArriving;
-     }
+    public void setAirport(Airport airport) {
+        this.airport = airport;
+    }
 
-     public Airport getAirportDeparture() {
-         return airportDeparture;
-     }
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "flightNumber='" + flightNumber + '\'' +
+                ", flightDataAndTimeArriving='" + flightDataAndTimeArriving + '\'' +
+                ", flightDataAndTimeDeparture='" + flightDataAndTimeDeparture + '\'' +
+                ", price=" + price +
+                ", availableSeat=" + availableSeat +
+                '}';
+    }
 
-     public void setAirportDeparture(Airport airportDeparture) {
-         this.airportDeparture = airportDeparture;
-     }
-
-     @Override
-     public String toString() {
-         return "Flight{" +
-                 "flightNumber='" + flightNumber + '\'' +
-                 ", flightDataAndTimeArriving='" + flightDataAndTimeArriving + '\'' +
-                 ", flightDataAndTimeDeparture='" + flightDataAndTimeDeparture + '\'' +
-                 ", price=" + price +
-                 ", availableSeat=" + availableSeat +
-                 '}';
-     }
-
- }
+}

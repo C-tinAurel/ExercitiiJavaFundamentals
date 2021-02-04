@@ -37,36 +37,35 @@ public class AirportService {
     }
 
     public void setCity(AirportDTO airportDTO, Airport airport) {
-        City cityFound = cityDAO.findCity(airportDTO.getCityDTO().getName());
+         City cityFound=null;
+         cityFound = cityDAO.findCity(airportDTO.getCityDTO().getName());
         if (cityFound == null) {
-            City city = new City();
-            city.setName(airportDTO.getCityDTO().getName());
-            airport.setCity(city);
-            setCountry(airportDTO,city);
-        } else {
+            cityFound = new City();
+            cityFound.setName(airportDTO.getCityDTO().getName());
             airport.setCity(cityFound);
+            setCountry(airportDTO, cityFound);
         }
     }
 
-    public void setCountry(AirportDTO airportDTO,City city){
-        Country countryFound = countryDAO.findCountry(airportDTO.getCityDTO().getCountryDTO().getName());
-        if(countryFound==null){
-            Country country=new Country();
+    public void setCountry(AirportDTO airportDTO, City city) {
+       Country countryFound = countryDAO.findCountry(airportDTO.getCityDTO().getCountryDTO().getName());
+        if (countryFound== null) {
+          Country  country = new Country();
             country.setName(airportDTO.getCityDTO().getCountryDTO().getName());
             city.setCountry(country);
-            setContinent(airportDTO,country);
+            setContinent(airportDTO, country);
         }else{
             city.setCountry(countryFound);
+            setContinent(airportDTO,countryFound);
         }
     }
 
-    public void setContinent(AirportDTO airportDTO,Country country){
-       Continent continentFound = continentDAO.findContinent(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
-        if(continentFound==null){
-            Continent continent=new Continent();
-           continent.setName(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
-            country.setContinent(continent);
-        }else{
+    public void setContinent(AirportDTO airportDTO, Country country) {
+        Continent continentFound=null;
+        continentFound = continentDAO.findContinent(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
+        if (continentFound == null) {
+            continentFound = new Continent();
+            continentFound.setName(airportDTO.getCityDTO().getCountryDTO().getContinentDTO().getName());
             country.setContinent(continentFound);
         }
     }

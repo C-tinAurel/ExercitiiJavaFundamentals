@@ -49,12 +49,9 @@ public class Trip {
     private int kidNumber;
     @Column(name = "available_stock")
     private int availableStock;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "airports_departure")
-    private Airport airportDeparture;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "airports_arriving")
-    private Airport airportArriving;
+    @JoinColumn(name = "airports_id")
+    private Airport airport;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "hotels_id")
     private Hotel hotel;
@@ -82,7 +79,7 @@ public class Trip {
         this.availableStock = availableStock;
     }
 
-    public Trip(String name, Date departureDate, Date returnData, Date checkIn, Date checkOut, int numberDay, String mealType, double adultPrice, double kidPrice, boolean promoted, int adultNumber, int kidNumber, int availableStock, Airport airportDeparture, Airport airportArriving, Hotel hotel) {
+    public Trip(String name, Date departureDate, Date returnData, Date checkIn, Date checkOut, int numberDay, String mealType, double adultPrice, double kidPrice, boolean promoted, int adultNumber, int kidNumber, int availableStock, Airport airport, Hotel hotel, Set<Purchase> purchaseSet) {
         this.name = name;
         this.departureDate = departureDate;
         this.returnData = returnData;
@@ -96,10 +93,9 @@ public class Trip {
         this.adultNumber = adultNumber;
         this.kidNumber = kidNumber;
         this.availableStock = availableStock;
-        this.airportDeparture = airportDeparture;
-        this.airportArriving = airportArriving;
+        this.airport = airport;
         this.hotel = hotel;
-
+        this.purchaseSet = purchaseSet;
     }
 
     public Date getDepartureDate() {
@@ -190,20 +186,12 @@ public class Trip {
         this.availableStock = availableStock;
     }
 
-    public Airport getAirportDeparture() {
-        return airportDeparture;
+    public Airport getAirport() {
+        return airport;
     }
 
-    public void setAirportDeparture(Airport airportDeparture) {
-        this.airportDeparture = airportDeparture;
-    }
-
-    public Airport getAirportArriving() {
-        return airportArriving;
-    }
-
-    public void setAirportArriving(Airport airportArriving) {
-        this.airportArriving = airportArriving;
+    public void setAirport(Airport airport) {
+        this.airport = airport;
     }
 
     public Hotel getHotel() {

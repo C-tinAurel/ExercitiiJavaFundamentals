@@ -1,8 +1,9 @@
 package persistence.entities;
+
 import javax.persistence.*;
 import java.util.Set;
 
-@NamedQueries({@NamedQuery(name = "selectContinent",query = "select continent from Continent continent where name=:name")})
+@NamedQueries({@NamedQuery(name = "selectContinent", query = "select continent from Continent continent where name=:name")})
 
 @Entity
 @Table(name = "continents")
@@ -12,7 +13,7 @@ public class Continent {
     private int id;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "continent")
+    @OneToMany(mappedBy = "continent", cascade = CascadeType.ALL)
     private Set<Country> countrySet;
 
     public Continent() {

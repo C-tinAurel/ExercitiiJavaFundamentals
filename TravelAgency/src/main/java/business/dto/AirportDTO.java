@@ -16,10 +16,8 @@ public class AirportDTO {
     private String name;
     @NotNull
     private CityDTO cityDTO;
-    private Set<TripDTO> tripDepartureDTOSet;
-    private Set<TripDTO> tripArrivingDTOSet;
-    private Set<FlightDTO> flightDTODepartureSet;
-    private Set<FlightDTO> flightDTOArrivingSet;
+    private Set<TripDTO> tripDTOSet;
+    private Set<FlightDTO> flightDTOSet;
 
     public AirportDTO() {
     }
@@ -28,20 +26,12 @@ public class AirportDTO {
         this.name = name;
     }
 
-    public AirportDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String name, @NotNull CityDTO cityDTO, Set<TripDTO> tripDepartureDTOSet, Set<TripDTO> tripArrivingDTOSet) {
-        this.name = name;
-        this.cityDTO = cityDTO;
-        this.tripDepartureDTOSet = tripDepartureDTOSet;
-        this.tripArrivingDTOSet = tripArrivingDTOSet;
-    }
 
-    public AirportDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String name, @NotNull CityDTO cityDTO, Set<TripDTO> tripDepartureDTOSet, Set<TripDTO> tripArrivingDTOSet, Set<FlightDTO> flightDTODepartureSet, Set<FlightDTO> flightDTOArrivingSet) {
+    public AirportDTO(@NotNull @NotEmpty @NotBlank @Pattern(regexp = "([a-z-A-Z])*") String name, @NotNull CityDTO cityDTO, Set<TripDTO> tripDTOSet, Set<FlightDTO> flightDTOSet) {
         this.name = name;
         this.cityDTO = cityDTO;
-        this.tripDepartureDTOSet = tripDepartureDTOSet;
-        this.tripArrivingDTOSet = tripArrivingDTOSet;
-        this.flightDTODepartureSet = flightDTODepartureSet;
-        this.flightDTOArrivingSet = flightDTOArrivingSet;
+        this.tripDTOSet = tripDTOSet;
+        this.flightDTOSet = flightDTOSet;
     }
 
     public String getName() {
@@ -60,36 +50,20 @@ public class AirportDTO {
         this.cityDTO = cityDTO;
     }
 
-    public Set<TripDTO> getTripDepartureDTOSet() {
-        return tripDepartureDTOSet;
+    public Set<TripDTO> getTripDTOSet() {
+        return tripDTOSet;
     }
 
-    public void setTripDepartureDTOSet(Set<TripDTO> tripDepartureDTOSet) {
-        this.tripDepartureDTOSet = tripDepartureDTOSet;
+    public void setTripDTOSet(Set<TripDTO> tripDTOSet) {
+        this.tripDTOSet = tripDTOSet;
     }
 
-    public Set<TripDTO> getTripArrivingDTOSet() {
-        return tripArrivingDTOSet;
+    public Set<FlightDTO> getFlightDTOSet() {
+        return flightDTOSet;
     }
 
-    public void setTripArrivingDTOSet(Set<TripDTO> tripArrivingDTOSet) {
-        this.tripArrivingDTOSet = tripArrivingDTOSet;
-    }
-
-    public Set<FlightDTO> getFlightDTODepartureSet() {
-        return flightDTODepartureSet;
-    }
-
-    public void setFlightDTODepartureSet(Set<FlightDTO> flightDTODepartureSet) {
-        this.flightDTODepartureSet = flightDTODepartureSet;
-    }
-
-    public Set<FlightDTO> getFlightDTOArrivingSet() {
-        return flightDTOArrivingSet;
-    }
-
-    public void setFlightDTOArrivingSet(Set<FlightDTO> flightDTOArrivingSet) {
-        this.flightDTOArrivingSet = flightDTOArrivingSet;
+    public void setFlightDTOSet(Set<FlightDTO> flightDTOSet) {
+        this.flightDTOSet = flightDTOSet;
     }
 
     @Override

@@ -34,9 +34,9 @@ public class FlightController {
        return "Zborul " +flightDTO+ " exista in baza de date";
    }
 
-   @GetMapping(path = "/findFlightByAirportDeparture")
+   @GetMapping(path = "/findFlightByAirport")
    public String findFlightByDepartureAirportDeparture(@RequestParam String airportName){
-       List<FlightDTO> flightDTOList=flightService.findFlightByAirportDeparture(airportName);
+       List<FlightDTO> flightDTOList=flightService.findFlightByAirport(airportName);
        if(flightDTOList==null){
            return "Nu exista zboruri in Aeroportul " +airportName;
        }

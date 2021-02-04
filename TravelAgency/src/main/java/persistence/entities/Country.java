@@ -13,7 +13,7 @@ public class Country {
     private int id;
     @Column(name = "name")
     private String name;
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "continents_id")
     private Continent continent;
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)

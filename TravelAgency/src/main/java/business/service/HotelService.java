@@ -50,13 +50,10 @@ public class HotelService {
             room.setExtraBed(roomDTO.isExtraBed());
             roomSet.add(room);
         }
-
         hotel.setRoomSet(roomSet);
-
-
     }
+
     public void setCity(HotelDTO hotelDTO,Hotel hotel) {
-        System.out.println("Afisam orasul " + hotelDTO.getCityDTO().getCountryDTO().getName());
         City cityFound=cityDAO.findCity(hotelDTO.getCityDTO().getName());
         if(cityFound==null){
             City city=new City();

@@ -15,7 +15,7 @@ public class TripDTO {
     private java.sql.Date departureDate;
     @NotNull
     private java.sql.Date returnData;
-
+    @NotNull
     private java.sql.Date checkIn;
     @NotNull
     private java.sql.Date checkOut;
@@ -34,8 +34,7 @@ public class TripDTO {
     private int kidNumber;
     @NotNull
     private int availableStock;
-    private AirportDTO airportDepartureDTO;
-    private AirportDTO airportArrivingDTO;
+    private AirportDTO airportDTO;
     @NotNull
     private HotelDTO hotelDTO;
    // @NotNull
@@ -60,7 +59,7 @@ public class TripDTO {
         this.availableStock = availableStock;
     }
 
-    public TripDTO(@NotNull String name, Date departureDate, Date returnData, Date checkIn, Date checkOut, @NotNull int numberDay, @NotNull String mealType, @NotNull double adultPrice, @NotNull double kidPrice, @NotNull boolean promoted, @NotNull int adultNumber, int kidNumber, @NotNull int availableStock, AirportDTO airportDepartureDTO, AirportDTO airportArrivingDTO, @NotNull HotelDTO hotelDTO) {
+    public TripDTO(@NotNull String name, Date departureDate, Date returnData, Date checkIn, Date checkOut, @NotNull int numberDay, @NotNull String mealType, @NotNull double adultPrice, @NotNull double kidPrice, @NotNull boolean promoted, @NotNull int adultNumber, int kidNumber, @NotNull int availableStock, AirportDTO airportDTO, @NotNull HotelDTO hotelDTO, Set<PurchaseDTO> purchaseDTOSetSet) {
         this.name = name;
         this.departureDate = departureDate;
         this.returnData = returnData;
@@ -74,9 +73,9 @@ public class TripDTO {
         this.adultNumber = adultNumber;
         this.kidNumber = kidNumber;
         this.availableStock = availableStock;
-        this.airportDepartureDTO = airportDepartureDTO;
-        this.airportArrivingDTO = airportArrivingDTO;
+        this.airportDTO = airportDTO;
         this.hotelDTO = hotelDTO;
+        this.purchaseDTOSetSet = purchaseDTOSetSet;
     }
 
     public Date getDepartureDate() {
@@ -175,20 +174,12 @@ public class TripDTO {
         this.availableStock = availableStock;
     }
 
-    public AirportDTO getAirportDepartureDTO() {
-        return airportDepartureDTO;
+    public AirportDTO getAirportDTO() {
+        return airportDTO;
     }
 
-    public void setAirportDepartureDTO(AirportDTO airportDepartureDTO) {
-        this.airportDepartureDTO = airportDepartureDTO;
-    }
-
-    public AirportDTO getAirportArrivingDTO() {
-        return airportArrivingDTO;
-    }
-
-    public void setAirportArrivingDTO(AirportDTO airportArrivingDTO) {
-        this.airportArrivingDTO = airportArrivingDTO;
+    public void setAirportDTO(AirportDTO airportDTO) {
+        this.airportDTO = airportDTO;
     }
 
     public HotelDTO getHotelDTO() {

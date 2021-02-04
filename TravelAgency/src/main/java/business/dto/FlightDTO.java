@@ -22,8 +22,7 @@ public class FlightDTO {
     private double price;
     @NotNull
     private int availableSeat;
-    private AirportDTO airportDTODeparture;
-    private AirportDTO airportDTOArriving;
+    private AirportDTO airportDTO;
 
     public FlightDTO() {
     }
@@ -36,14 +35,13 @@ public class FlightDTO {
         this.availableSeat = availableSeat;
     }
 
-    public FlightDTO(@NotNull @NotEmpty @NotBlank String flightNumber, @NotEmpty @NotNull @NotBlank String flightDataAndTimeDeparture, String flightDataAndTimeArriving, @NotNull double price, @NotNull int availableSeat, @NotNull AirportDTO airportDTODeparture, AirportDTO airportDTOArriving) {
+    public FlightDTO(@NotNull @NotEmpty @NotBlank String flightNumber, @NotEmpty @NotNull @NotBlank String flightDataAndTimeDeparture, String flightDataAndTimeArriving, @NotNull double price, @NotNull int availableSeat, AirportDTO airportDTO) {
         this.flightNumber = flightNumber;
         this.flightDataAndTimeDeparture = flightDataAndTimeDeparture;
         this.flightDataAndTimeArriving = flightDataAndTimeArriving;
         this.price = price;
         this.availableSeat = availableSeat;
-        this.airportDTODeparture = airportDTODeparture;
-        this.airportDTOArriving = airportDTOArriving;
+        this.airportDTO = airportDTO;
     }
 
     public String getFlightNumber() {
@@ -70,20 +68,12 @@ public class FlightDTO {
         this.availableSeat = availableSeat;
     }
 
-    public AirportDTO getAirportDTODeparture() {
-        return airportDTODeparture;
+    public AirportDTO getAirportDTO() {
+        return airportDTO;
     }
 
-    public void setAirportDTODeparture(AirportDTO airportDTODeparture) {
-        this.airportDTODeparture = airportDTODeparture;
-    }
-
-    public AirportDTO getAirportDTOArriving() {
-        return airportDTOArriving;
-    }
-
-    public void setAirportDTOArriving(AirportDTO airportDTOArriving) {
-        this.airportDTOArriving = airportDTOArriving;
+    public void setAirportDTO(AirportDTO airportDTO) {
+        this.airportDTO = airportDTO;
     }
 
     public String getFlightDataAndTimeDeparture() {
