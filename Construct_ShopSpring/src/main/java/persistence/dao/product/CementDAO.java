@@ -1,9 +1,9 @@
-package persistence.dao;
+package persistence.dao.product;
 
 import config.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
-import persistence.entities.Cement;
+import persistence.entities.product.Cement;
 
 import javax.persistence.Query;
 import java.util.List;

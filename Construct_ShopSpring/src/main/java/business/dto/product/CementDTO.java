@@ -1,4 +1,7 @@
-package business.dto;
+package business.dto.product;
+
+import business.dto.DepartmentDTO;
+import business.dto.DepositDTO;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -10,10 +13,9 @@ public class CementDTO {
     @NotEmpty
     @NotBlank
     @NotNull
-    @Pattern(regexp = "([a-zA-Z])*")
     private String name;
-    @NotEmpty
-    @NotBlank
+    @NotEmpty(message = "granulation field cannot be empty")
+    @NotBlank(message = "granulation field cannot be blank")
     @NotNull
     @Pattern(regexp = "([a-zA-Z])*")
     private String granulation;

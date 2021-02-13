@@ -1,4 +1,7 @@
-package persistence.entities;
+package persistence.entities.product;
+
+import persistence.entities.Department;
+import persistence.entities.Deposit;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -45,6 +48,14 @@ public class Cement {
         this.stock = stock;
         this.department = department;
         this.depositSet = depositSet;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

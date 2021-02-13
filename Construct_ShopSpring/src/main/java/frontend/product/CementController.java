@@ -1,10 +1,11 @@
-package frontend;
+package frontend.product;
 
-import business.dto.CementDTO;
-import business.service.CementService;
+import business.dto.product.CementDTO;
+import business.service.product.CementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -13,16 +14,9 @@ public class CementController {
     CementService cementService;
 
     @PostMapping(path = "/insertCement")
-    public String insertCement(@RequestBody CementDTO insertCement) {
-        CementDTO cementDTO = new CementDTO();
-        cementDTO.setName(insertCement.getName());
-        cementDTO.setGranulation(insertCement.getGranulation());
-        cementDTO.setPrice(insertCement.getPrice());
-        cementDTO.setStock(insertCement.getStock());
-        cementDTO.setDepartmentDTO(insertCement.getDepartmentDTO());
-        cementDTO.setDepositDTOSet(insertCement.getDepositDTOSet());
+    public String insertCement(@RequestBody @Valid CementDTO cementDTO) {
         cementService.insert(cementDTO);
-        return "Am introdus Cimentul: " + insertCement.getName();
+        return "Am introdus cimentul cu succes " ;
     }
 
     @GetMapping(path = "/findCement")
