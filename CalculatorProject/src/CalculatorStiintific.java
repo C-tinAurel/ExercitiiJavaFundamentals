@@ -1,4 +1,4 @@
-public class CalculatorStiintific extends Calculator {
+public class CalculatorStiintific extends Calculator{
 
 
     public CalculatorStiintific() {
